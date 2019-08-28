@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<script type="text/plain" src="https://github.com/typicaljoe/taffydb/raw/master/taffy.js"></script>
+		<script>
+
+		var cities = TAFFY([{name:"New York",state:"WA"},{name:"Las Vegas",state:"NV"},{name:"Boston",state:"MA"}]);
+	
+		cities.insert({name:"Portland",state:"OR"});
+
+		alert(cities({name:"Boston"}).count());
+
+		</script>
+	</head>
+	<body>
+	</body>
+				
+</html>
