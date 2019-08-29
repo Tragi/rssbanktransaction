@@ -28,11 +28,11 @@ try {
 }
 echo "hello"
     
-    if( $_POST["transaction"]) {
-        echo $_POST
-    } else {
+//    if( $_POST["transaction"]) {
+//        echo $_POST
+//    } else {
        include("template.php");
-    }
+//    }
 
 ?>
 
