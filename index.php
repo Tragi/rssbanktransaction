@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 
 $db = parse_url(getenv("DATABASE_URL"));
 $host='ec2-54-217-235-87.eu-west-1.compute.amazonaws.com';
-$dbname = 'pagila';
+$dbname = 'd4es7alaadvmih';
 $username = 'zhtzkjcvxxjmfk';
 $password = '0d089aae8342db654d90cb7cb2e652bdf303918af61f9d997f380a80aba204f0';
 $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$password";
