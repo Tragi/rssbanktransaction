@@ -15,13 +15,13 @@ try {
     $pdo = new PDO($dsn);
 
 	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );//Error Handling
-    $sql ="CREATE TABLE banks( ID INT(11) AUTO_INCREMENT PRIMARY KEY, Name VARCHAR( 50 ) NOT NULL, Created TIMESTAMP NOT NULL DEFAULT NOW();" ;
+    $sql ="CREATE TABLE banks (ID serial AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(50) NOT NULL, Created TIMESTAMP NOT NULL DEFAULT NOW();" ;
     $pdo->exec($sql);
     
-    $sql ="CREATE TABLE users( ID INT(11) AUTO_INCREMENT PRIMARY KEY, Name VARCHAR( 50 ) NOT NULL, Role INT ( 11 ) NOT NULL, Created TIMESTAMP NOT NULL DEFAULT NOW();" ;
+    $sql ="CREATE TABLE users(ID serial AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(50) NOT NULL, Role integer NOT NULL, Created TIMESTAMP NOT NULL DEFAULT NOW();" ;
     $pdo->exec($sql);
     
-    $sql ="CREATE TABLE transactions ( 'ID' INT(11) AUTO_INCREMENT PRIMARY KEY, 'UID' INT(11) NOT NULL, 'BID' INT(11) NOT NULL, 'Grain' INT(11) NOT NULL, 'Wood' INT(11) NOT NULL, 'Stone' INT(11) NOT NULL, 'Iron' INT(11) NOT NULL, 'Gold' INT(11) NOT NULL, 'Created' TIMESTAMP NOT NULL DEFAULT NOW();";
+    $sql ="CREATE TABLE transactions (ID serial AUTO_INCREMENT PRIMARY KEY, 'UID' integer NOT NULL, 'BID' integer NOT NULL, 'Grain' integer NOT NULL, 'Wood' integer NOT NULL, 'Stone' integer NOT NULL, 'Iron' integer NOT NULL, 'Gold' integer NOT NULL, 'Created' TIMESTAMP NOT NULL DEFAULT NOW();";
     $pdo->exec($sql);
     
     
