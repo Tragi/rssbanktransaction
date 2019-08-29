@@ -27,9 +27,10 @@ try {
     echo $e->getMessage();//Remove or change message in production code
 }
     var_dump($argv);
-    if ($_POST["test"]) {
-        echo $_POST
-    }
+//    if ($_POST["test"]) {
+//        echo $_POST
+//    }
+    
     include("template.php");
 ?>
 
