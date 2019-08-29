@@ -27,7 +27,7 @@ try {
     echo $e->getMessage();//Remove or change message in production code
 }
     
-    if (false) {
+    if (1==0) {
         echo $_POST
     } else {
        include("template.php");
