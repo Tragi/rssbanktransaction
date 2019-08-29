@@ -11,6 +11,7 @@ $pdo = new PDO("pgsql:" . sprintf(
     ltrim($db["d4es7alaadvmih"], "/")
 ));
 
-echo($pdo);
+echo $db;
+echo $pdo;
 
 ?>
