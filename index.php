@@ -26,7 +26,7 @@ try {
 } catch(PDOException $e) {
     echo $e->getMessage();//Remove or change message in production code
 }
-echo "hello"
+//echo "hello"
     
 //    if( $_POST["transaction"]) {
 //        echo $_POST
