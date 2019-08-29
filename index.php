@@ -28,7 +28,7 @@ try {
 }
     
     if (1==0) {
-        echo $_POST
+        echo "Hello"
     } else {
        include("template.php");
     }
