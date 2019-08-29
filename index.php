@@ -3,19 +3,16 @@
 error_reporting(E_ALL);
 
 $db = parse_url(getenv("DATABASE_URL"));
-var_dump($db);
+$host='ec2-54-217-235-87.eu-west-1.compute.amazonaws.com';
+$dbname = 'pagila';
+$username = 'zhtzkjcvxxjmfk';
+$password = '0d089aae8342db654d90cb7cb2e652bdf303918af61f9d997f380a80aba204f0';
+$dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$password";
 
-
-$table = "transactions";
+    echo $dsn;
+    
 try {
-     $pdo = new PDO("pgsql:" . sprintf(
-   	"host=%s;port=%s;user=%s;password=%s;dbname=%s",
-	$db["ec2-54-217-235-87.eu-west-1.compute.amazonaws.com"],
-	$db["5432"],
-	$db["zhtzkjcvxxjmfk"],
-	$db["0d089aae8342db654d90cb7cb2e652bdf303918af61f9d997f380a80aba204f0"],
-    	ltrim($db["d4es7alaadvmih"], "/")
-	));
+    $pdo = new PDO($dsn);
 
 	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );//Error Handling
 	$sql ="CREATE table transactions(
