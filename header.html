@@ -1,0 +1,39 @@
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>    </head>
+
+<script>
+    $(document).ready(function() {
+                      var resources = ["grain","wood","stone","iron","gold"]
+                      for (i = 0; i < resources.length; i++) {
+                      (function (i) {
+                       var slider = $("#" + resources[i] + "Slider");
+                       var input = $("#" + resources[i] + "Input");
+                       slider.val("0");
+                       input.val("0");
+                       slider.on("input change", function(e) {
+                                 input.val($(this).val())
+                                 });
+                       input.on("input change", function(e) {
+                                slider.val($(this).val())
+                                });
+                       })(i)
+                      }
+                      $("button#submit").click(function(){
+                                               alert($("#transactionForm").serialize())
+                                               $.ajax({
+                                                      type: "POST",
+                                                      url: "postTransaction",
+                                                      data: $("#transactionForm").serialize(),
+                                                      success: function(msg){},
+                                                      error: function(){}
+                                                      })
+                                               });
+                      });
+    </script>
+</head>

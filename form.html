@@ -1,0 +1,63 @@
+        <form id="transactionForm" method="post" action="postTransaction" onsubmit="return false;">
+            <label for="customRange2">Grain</label>
+            <div class="form-group row">
+                <div class="d-flex flex-fill">
+                    <div class="col-8">
+                        <input type="range" class="custom-range align-middle" min="0" max="10000000" step="100000" value="0"  id="grainSlider" />
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" type="number" min="0" max="10000000" step="100000" value="0" id="grainInput" name="grain" />
+                    </div>
+                </div>
+            </div>
+            <label for="customRange2">Wood</label>
+            <div class="form-group row">
+                <div class="d-flex flex-fill">
+                    <div class="col-8">
+                        <input type="range" class="custom-range align-middle" min="0" max="10000000" step="100000" value="0"  id="woodSlider" />
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" type="number" min="0" max="10000000" step="100000" value="0" id="woodInput" name="wood" />
+                    </div>
+                </div>
+            </div>
+            <label for="customRange2">Stone</label>
+            <div class="form-group row">
+                <div class="d-flex flex-fill">
+                    <div class="col-8">
+                        <input type="range" class="custom-range align-middle" min="0" max="10000000" step="100000" value="0"  id="stoneSlider" />
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" type="number" min="0" max="10000000" step="100000" value="0" id="stoneInput" name="stone" />
+                    </div>
+                </div>
+            </div>
+            <label for="customRange2">Iron</label>
+            <div class="form-group row">
+                <div class="d-flex flex-fill">
+                    <div class="col-8">
+                        <input type="range" class="custom-range align-middle" min="0" max="10000000" step="100000" value="0"  id="ironSlider" />
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" type="number" min="0" max="10000000" step="100000" value="0" id="ironInput" name="iron" />
+                    </div>
+                </div>
+            </div>
+            <label for="customRange2">Gold</label>
+            <div class="form-group row">
+                <div class="d-flex flex-fill">
+                    <div class="col-8">
+                        <input type="range" class="custom-range align-middle" min="0" max="10000000" step="100000" value="0"  id="goldSlider" />
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" type="number" min="0" max="10000000" step="100000" value="0" id="goldInput" name="gold" />
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="d-flex justify-content-end col-12">
+                    <button id="submit" class="btn btn-primary col-3" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </form>
