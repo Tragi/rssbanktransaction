@@ -1,7 +1,162 @@
 <!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>    </head>
     
+    <script>
+        $(document).ready(function() {
+                          var resources = ["grain","wood","stone","iron","gold"]
+                          for (i = 0; i < resources.length; i++) {
+                          (function (i) {
+                           var slider = $("#" + resources[i] + "Slider");
+                           var input = $("#" + resources[i] + "Input");
+                           slider.val("0");
+                           input.val("0");
+                           slider.on("input change", function(e) {
+                                     input.val($(this).val())
+                                     });
+                           input.on("input change", function(e) {
+                                    slider.val($(this).val())
+                                    });
+                           })(i)
+                          }
+                          $("button#submit").click(function(){
+                                                   alert($("#transactionForm").serialize())
+                                                   $.ajax({
+                                                          type: "POST",
+                                                          url: "postTransaction",
+                                                          data: $("#transactionForm").serialize(),
+                                                          success: function(msg){},
+                                                          error: function(){}
+                                                          })
+                                                   });
+                          });
+        </script>
+    </head>
     <body>
-    
-</body>
+        <div class="container">
+            <div class="row">
+                <div class="p2 col-4">
+                    <h1>Banka</h1>
+                    <div class="">
+                        <form id="transactionForm" method="post" action="postTransaction" onsubmit="return false;">
+                            <label for="customRange2">Grain</label>
+                            <div class="form-group row">
+                                <div class="d-flex flex-fill">
+                                    <div class="col-8">
+                                        <input type="range" class="custom-range align-middle" min="0" max="10000000" step="100000" value="0"  id="grainSlider" />
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control" type="number" min="0" max="10000000" step="100000" value="0" id="grainInput" name="grain" />
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="customRange2">Wood</label>
+                            <div class="form-group row">
+                                <div class="d-flex flex-fill">
+                                    <div class="col-8">
+                                        <input type="range" class="custom-range align-middle" min="0" max="10000000" step="100000" value="0"  id="woodSlider" />
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control" type="number" min="0" max="10000000" step="100000" value="0" id="woodInput" name="wood" />
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="customRange2">Stone</label>
+                            <div class="form-group row">
+                                <div class="d-flex flex-fill">
+                                    <div class="col-8">
+                                        <input type="range" class="custom-range align-middle" min="0" max="10000000" step="100000" value="0"  id="stoneSlider" />
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control" type="number" min="0" max="10000000" step="100000" value="0" id="stoneInput" name="stone" />
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="customRange2">Iron</label>
+                            <div class="form-group row">
+                                <div class="d-flex flex-fill">
+                                    <div class="col-8">
+                                        <input type="range" class="custom-range align-middle" min="0" max="10000000" step="100000" value="0"  id="ironSlider" />
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control" type="number" min="0" max="10000000" step="100000" value="0" id="ironInput" name="iron" />
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="customRange2">Gold</label>
+                            <div class="form-group row">
+                                <div class="d-flex flex-fill">
+                                    <div class="col-8">
+                                        <input type="range" class="custom-range align-middle" min="0" max="10000000" step="100000" value="0"  id="goldSlider" />
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control" type="number" min="0" max="10000000" step="100000" value="0" id="goldInput" name="gold" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group row">
+                                <div class="d-flex justify-content-end col-12">
+                                    <button id="submit" class="btn btn-primary col-3" data-dismiss="modal">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="p2 col-8">
+                    <h1>Historie pohybu</h1>
+                    <table class="table table-sm ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Grain</th>
+                                <th scope="col">Wood</th>
+                                <th scope="col">Strone</th>
+                                <th scope="col">Iron</th>
+                                <th scope="col">Gold</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-primary">
+                                <td>Suma</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="table-success">
+                                <td>1.1.19</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="table-danger">
+                                <td>1.1.19</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                                <td>10 000 000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
+

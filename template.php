@@ -13,7 +13,7 @@
                 <div class="p2 col-4">
                     <h1>Historie pohybu</h1>
                     <div class="" id="transactionList">
-                        <?php include("list.html"); ?>
+                        <?php include("list.php"); ?>
                     </div>
                 </div>
             </div>

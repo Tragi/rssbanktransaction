@@ -27,7 +27,11 @@ try {
     echo $e->getMessage();//Remove or change message in production code
 }
 
-    include("template.php");
-    
+    if( $_POST["transaction"]) {
+        echo $_POST
+    } else {
+       include("template.php");
+    }
+
 ?>
 
