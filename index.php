@@ -27,11 +27,6 @@ try {
     echo $e->getMessage();//Remove or change message in production code
 }
     
-    if (1==0) {
-        echo "Hello"
-    } else {
-       include("template.php");
-    }
-
+    include("template.php");
 ?>
 
