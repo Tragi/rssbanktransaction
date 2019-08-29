@@ -1,6 +1,9 @@
 <?php 
 
+error_reporting(E_ALL);
+
 $db = parse_url(getenv("DATABASE_URL"));
+var_dump($db);
 
 $pdo = new PDO("pgsql:" . sprintf(
     "host=%s;port=%s;user=%s;password=%s;dbname=%s",
@@ -11,7 +14,6 @@ $pdo = new PDO("pgsql:" . sprintf(
     ltrim($db["d4es7alaadvmih"], "/")
 ));
 
-echo $db;
-echo $pdo;
+var_dump($pdo);
 
 ?>
