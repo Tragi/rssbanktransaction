@@ -15,25 +15,18 @@ try {
     $pdo = new PDO($dsn);
 
 	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );//Error Handling
-	$sql ="CREATE table transactions(
-        ID INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
-        UID INT( 11 ) NOT NULL,
-        BID INT( 11 ) NOT NULL,
-        Grain INT( 11 ) NOT NULL,
-        Wood INT( 11 ) NOT NULL,
-        Stone INT( 11 ) NOT NULL,
-        Iron INT( 11 ) NOT NULL,
-        Gold INT( 11 ) NOT NULL,
-        Created TIMESTAMP NOT NULL DEFAULT NOW();" ;
+	$sql ="CREATE table transactions (
+        ID INT(11) AUTO_INCREMENT PRIMARY KEY,
+        UID INT(11) NOT NULL;" ;
     $pdo->exec($sql);
-    $sql ="CREATE table users(
+    $sql ="CREATE table users (
         ID INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
         Name VARCHAR( 50 ) NOT NULL,
         Rrole INT ( 11 ) NOT NULL,
         Created TIMESTAMP NOT NULL DEFAULT NOW();" ;
     $pdo->exec($sql);
 
-    $sql ="CREATE table banks(
+    $sql ="CREATE table banks (
     ID INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR( 50 ) NOT NULL,
     Created TIMESTAMP NOT NULL DEFAULT NOW();" ;
