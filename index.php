@@ -15,18 +15,22 @@ try {
     $pdo = new PDO($dsn);
 
 	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );//Error Handling
-	$sql ="CREATE table transactions (
-        ID INT(11) AUTO_INCREMENT PRIMARY KEY,
-        UID INT(11) NOT NULL;" ;
+    $sql ="CREATE TABLE employees (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    firstname VARCHAR(30) NOT NULL,
+    lastname VARCHAR(30) NOT NULL,
+    email VARCHAR(50),
+    reg_date TIMESTAMP
+    )";
     $pdo->exec($sql);
-    $sql ="CREATE table users (
+    $sql ="CREATE table users(
         ID INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
         Name VARCHAR( 50 ) NOT NULL,
         Rrole INT ( 11 ) NOT NULL,
         Created TIMESTAMP NOT NULL DEFAULT NOW();" ;
     $pdo->exec($sql);
 
-    $sql ="CREATE table banks (
+    $sql ="CREATE table banks(
     ID INT( 11 ) AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR( 50 ) NOT NULL,
     Created TIMESTAMP NOT NULL DEFAULT NOW();" ;
