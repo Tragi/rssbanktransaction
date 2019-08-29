@@ -4,11 +4,12 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>    </head>
-    
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script>
         $(document).ready(function() {
                           var resources = ["grain","wood","stone","iron","gold"]
@@ -104,6 +105,14 @@
                             <br />
                             <div class="form-group row">
                                 <div class="d-flex justify-content-end col-12">
+                                    <div class="col-5">
+                                        <input checked="checked" type="checkbox" data-toggle="toggle" data-on="Odesilam" data-off="Dostavam" id="transactionToggle" name="transaction" data-onstyle="success" data-offstyle="danger"/>
+                                        <script>
+                                            $(function() {
+                                              $('#transactionToggle').bootstrapToggle();
+                                            })
+                                        </script>
+                                    </div>
                                     <button id="submit" class="btn btn-primary col-3" data-dismiss="modal">Submit</button>
                                 </div>
                             </div>
