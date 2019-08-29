@@ -10,7 +10,7 @@
                         <?php include("form.html"); ?>
                     </div>
                 </div>
-                <div class="p2 col-4">
+                <div class="p2 col-8">
                     <h1>Historie pohybu</h1>
                     <div class="" id="transactionList">
                         <?php include("list.php"); ?>
