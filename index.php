@@ -75,9 +75,9 @@ try {
 //        throw new Exception('Request method must be POST!');
 //    }
 //    session_start();
-    if (!isset($_SESSION["userID"])) {
-        echo "nein!";
-    } elseif (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
+//    if (!isset($_SESSION["userID"])) {
+//        echo "nein!";
+    if (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
         include("template.php");
     } else {
         header("Status: 200");
