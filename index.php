@@ -47,18 +47,17 @@ try {
         $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
         $stmt->bindValue(':uid', 1);
         $stmt->bindValue(':bid', 1);
-        $stmt->bindValue(':type', 1);
+        $stmt->bindValue(':type', ($_POST["transaction"] == 'on') ? 1 : 0);
         $stmt->bindParam(':grain', $_POST["grain"]);
         $stmt->bindParam(':wood', $_POST["wood"]);
         $stmt->bindParam(':stone', $_POST["stone"]);
         $stmt->bindParam(':iron', $_POST["iron"]);
         $stmt->bindParam(':gold', $_POST["gold"]);
-        echo ($_POST["transaction"] == 'on') ? 1 : 0;
-       // $stmt->bindParam(':created', date('Y-m-d H:i:s'));
+        $stmt->bindParam(':created', date('Y-m-d H:i:s'));
         $stmt->execute();
-        echo "hotovo";
+        include("list.php");
     }
-//    include("template.php");
+
     $pdo->close();
 } catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
