@@ -74,7 +74,7 @@ try {
 //    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
 //        throw new Exception('Request method must be POST!');
 //    }
-    session_start();
+//    session_start();
     if (!isset($_SESSION["userID"])) {
         echo "nein!";
     } elseif (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
