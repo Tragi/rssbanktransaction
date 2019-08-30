@@ -12,13 +12,7 @@
     
     
     function echoTransactions() {
-        global $pdo;SELECT
-        customer_id,
-        SUM (amount)
-        FROM
-        payment
-        GROUP BY
-        customer_id;
+        global $pdo;
         $stmt = $pdo->prepare("SELECT uid, SUM(grain) FROM transactions GROUP BY uid");
         $stmt->execute();
         
