@@ -30,10 +30,10 @@ try {
 //    }
     
     function echoTransactions() {
-        $stmt = $pdo->prepare("SELECT * FROM transactions");
-        $stmt->execute();
+//        $stmt = $pdo->prepare("SELECT * FROM transactions");
+//        $stmt->execute();
 //        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-//        
+//
 //        echo $result;
     }
     
