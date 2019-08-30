@@ -52,7 +52,7 @@ try {
         $stmt->bindParam(':stone', $_POST["stone"]);
         $stmt->bindParam(':iron', $_POST["iron"]);
         $stmt->bindParam(':gold', $_POST["gold"]);
-        $stmt->bindParam(':type', $_POST["transaction"] ? 1 : 0);
+        $stmt->bindValue(':type', $_POST["transaction"] ? 1 : 0);
         $stmt->bindParam(':created', date('Y-m-d H:i:s'));
 //
         $stmt->execute();
