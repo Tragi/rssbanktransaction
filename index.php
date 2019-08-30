@@ -49,10 +49,10 @@ function createTransaction() {
     $stmt->bindParam(':bid', $_POST["bank"]);
     $stmt->bindValue(':type', isset($_POST["transaction"]) ? 1 : 0);
     $stmt->bindValue(':grain', $_POST["grain"] * $multiplier);
-    $stmt->bindParam(':wood', $_POST["wood"] * $multiplier);
-    $stmt->bindParam(':stone', $_POST["stone"] * $multiplier);
-    $stmt->bindParam(':iron', $_POST["iron"] * $multiplier);
-    $stmt->bindParam(':gold', $_POST["gold"] * $multiplier);
+    $stmt->bindValue(':wood', $_POST["wood"] * $multiplier);
+    $stmt->bindValue(':stone', $_POST["stone"] * $multiplier);
+    $stmt->bindValue(':iron', $_POST["iron"] * $multiplier);
+    $stmt->bindValue(':gold', $_POST["gold"] * $multiplier);
     $stmt->bindValue(':created', date('Y-m-d H:i:s'));
     $stmt->execute();
 }
