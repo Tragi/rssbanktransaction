@@ -18,6 +18,6 @@
             <td>10 000 000</td>
             <td>10 000 000</td>
         </tr>
-    
+        <?php echoTransactions(); ?>
     </tbody>
 </table>

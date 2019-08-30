@@ -18,12 +18,12 @@ function echoTransactions() {
 //        var_dump($row);
         $class = $row["type"] == 1 ? "success" : "danger";
         $created = $row["created"];
-//        $grain = number_format($row["grain"], 0, ',', ' ');
-//        $wood = number_format($row["wood"], 0, ',', ' ');
-//        $stone = number_format($row["stone"], 0, ',', ' ');
-//        $iron = number_format($row["iron"], 0, ',', ' ');
-//        $gold = number_format($row["gold"], 0, ',', ' ');
-//        echo "<tr class='table-$class'><td>$created</td><td>$grain</td><td>$wood</td><td>$stone</td><td>$iron</td><td>$gold</td></tr>";
+        $grain = number_format($row["grain"], 0, ',', ' ');
+        $wood = number_format($row["wood"], 0, ',', ' ');
+        $stone = number_format($row["stone"], 0, ',', ' ');
+        $iron = number_format($row["iron"], 0, ',', ' ');
+        $gold = number_format($row["gold"], 0, ',', ' ');
+        echo "<tr class='table-$class'><td>$created</td><td>$grain</td><td>$wood</td><td>$stone</td><td>$iron</td><td>$gold</td></tr>";
     }
 }
     
@@ -51,7 +51,7 @@ try {
         include("template.php");
     } else {
         header("Status: 200");
-        x$stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
+        $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
         $stmt->bindValue(':uid', 1);
         $stmt->bindValue(':bid', 1);
         $stmt->bindValue(':type', ($_POST["transaction"] == 'on') ? 1 : 0);
