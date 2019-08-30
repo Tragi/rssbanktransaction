@@ -37,7 +37,7 @@ try {
     $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
     $stmt->bindValue(':id', 1);
     $stmt->execute();
-    while ($row = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
+    while ($row = $stmt->fetchAll()) {
         var_dump($row)
     }
     
