@@ -90,6 +90,7 @@ try {
             $stmt->execute();
             $userId = $pdo->lastInsertId();
         } else {
+            var_dump($row);
             $userId = $row["ID"];
         }
         echo $userId;
