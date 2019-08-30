@@ -15,7 +15,7 @@ function echoTransactions() {
     $stmt->bindValue(':id', 1);
     $stmt->execute();
     while ($row = $stmt->fetchAll()) {
-        var_dump($row);
+//        var_dump($row);
         $class = $row["type"] == 1 ? "success" : "danger";
         $created = $row["created"];
         $grain = number_format($row["grain"], 0, ',', ' ');
