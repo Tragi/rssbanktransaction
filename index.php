@@ -21,11 +21,11 @@ function echoTransactions() {
 //        var_dump($row);
         $class = $row["type"] == 1 ? "success" : "danger";
         $created = $row["created"];
-        $sumGrain += $row["grain"]);
-        $sumWood += $row["wood"]);
-        $sumStone += $row["stone"]);
-        $sumIron += $row["iron"]);
-        $sumGold += $row["gold"]);
+        $sumGrain += $row["grain"];
+        $sumWood += $row["wood"];
+        $sumStone += $row["stone"];
+        $sumIron += $row["iron"];
+        $sumGold += $row["gold"];
         $grain = number_format($row["grain"], 0, ',', ' ');
         $wood = number_format($row["wood"], 0, ',', ' ');
         $stone = number_format($row["stone"], 0, ',', ' ');

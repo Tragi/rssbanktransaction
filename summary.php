@@ -20,11 +20,11 @@
         while ($row = $stmt->fetch()) {
                     var_dump($row);
             $name = $row["name"];
-            $sumGrain += $row["grain"] * ($row["type"] == 1 ? 1 : -1);
-            $sumWood += $row["wood"] * ($row["type"] == 1 ? 1 : -1);
-            $sumStone += $row["stone"] * ($row["type"] == 1 ? 1 : -1);
-            $sumIron += $row["iron"] * ($row["type"] == 1 ? 1 : -1);
-            $sumGold += $row["gold"] * ($row["type"] == 1 ? 1 : -1);
+            $sumGrain += $row["grain"];
+            $sumWood += $row["wood"];
+            $sumStone += $row["stone"];
+            $sumIron += $row["iron"];
+            $sumGold += $row["gold"];
             $grain = number_format($row["grain"], 0, ',', ' ');
             $wood = number_format($row["wood"], 0, ',', ' ');
             $stone = number_format($row["stone"], 0, ',', ' ');
