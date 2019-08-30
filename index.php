@@ -76,13 +76,14 @@ try {
 //    }
     
     session_start();
+    if (isset($_POST["user"])) {
+        var_dump($_POST);
+    }
     
     if (!isset($_SESSION["userID"])) {
         include("login.html");
     } elseif (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
         include("template.php");
-    } elseif (isset($_POST["user"])) {
-        var_dump($_POST);
     } elseif (isset($_POST["bank"])) {
         header("Status: 200");
         createTransaction();
