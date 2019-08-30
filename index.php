@@ -27,9 +27,9 @@ try {
     echo $e->getMessage();//Remove or change message in production code
 }
 //    var_dump($_POST);
-    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
-        throw new Exception('Request method must be POST!');
-    }
+//    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
+//        throw new Exception('Request method must be POST!');
+//    }
     echo "Ahoj";
 //    include("template.php");
 ?>
