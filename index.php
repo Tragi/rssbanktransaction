@@ -44,7 +44,7 @@ try {
     $pdo = new PDO($dsn);
 
 	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );//Error Handling
-    $pdo->exec("DELETE FROM transactions")
+    $pdo->exec("DELETE FROM transactions");
 //    $sql ="CREATE TABLE banks (ID serial PRIMARY KEY, Name VARCHAR(50) NOT NULL, Created timestamp);" ;
 //    $pdo->exec($sql);
     
@@ -65,6 +65,7 @@ try {
         include("template.php");
     } else {
         header("Status: 200");
+        var_dump($_POST);
         $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
         $stmt->bindValue(':uid', 1);
         $stmt->bindValue(':bid', 1);
