@@ -40,6 +40,21 @@ function echoTransactions() {
     return "<tr class='table-primary'><td scope=\"col\" style=\"width:220px\">Součet</td><td scope=\"col\" style=\"width:120px\">$grain</td><td scope=\"col\" style=\"width:120px\">$wood</td><td scope=\"col\" style=\"width:120px\">$stone</td><td scope=\"col\" style=\"width:120px\">$iron</td><td scope=\"col\" style=\"width:120px\">$gold</td></tr>";
 }
     
+function createTransaction() {
+    global $pdo, $_POST;
+    $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
+    $stmt->bindValue(':uid', 1);
+    $stmt->bindParam(':bid', $_POST["bank"]);
+    $stmt->bindValue(':type', isset($_POST["transaction"]) ? 1 : 0);
+    $stmt->bindParam(':grain', $_POST["grain"]);
+    $stmt->bindParam(':wood', $_POST["wood"]);
+    $stmt->bindParam(':stone', $_POST["stone"]);
+    $stmt->bindParam(':iron', $_POST["iron"]);
+    $stmt->bindParam(':gold', $_POST["gold"]);
+    $stmt->bindValue(':created', date('Y-m-d H:i:s'));
+    $stmt->execute();
+}
+    
 try {
     $pdo = new PDO($dsn);
 
@@ -59,22 +74,14 @@ try {
 //    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
 //        throw new Exception('Request method must be POST!');
 //    }
-    
-    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
+    session_start();
+    if !isset($_SESSION["userID"]) {
+       echo "nein!"
+    } elseif(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
         include("template.php");
     } else {
         header("Status: 200");
-        $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
-        $stmt->bindValue(':uid', 1);
-        $stmt->bindParam(':bid', $_POST["bank"]);
-        $stmt->bindValue(':type', isset($_POST["transaction"]) ? 1 : 0);
-        $stmt->bindParam(':grain', $_POST["grain"]);
-        $stmt->bindParam(':wood', $_POST["wood"]);
-        $stmt->bindParam(':stone', $_POST["stone"]);
-        $stmt->bindParam(':iron', $_POST["iron"]);
-        $stmt->bindParam(':gold', $_POST["gold"]);
-        $stmt->bindValue(':created', date('Y-m-d H:i:s'));
-        $stmt->execute();
+        createTransaction()
         include("list.php");
     }
 } catch(PDOException $e) {
