@@ -30,8 +30,7 @@ try {
 //    }
     
     function echoTransactions() {
-        
-//        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
+        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
 //        $stmt->bindParam(':id', 1);
 //        $stmt->execute();
 //        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
