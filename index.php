@@ -23,7 +23,7 @@ function echoTransactions() {
         $stone = number_format($row["stone"], 0, ',', ' ');
         $iron = number_format($row["iron"], 0, ',', ' ');
         $gold = number_format($row["gold"], 0, ',', ' ');
-        echo "<tr class='table-$class'><td>$created</td><td>$grain</td><td>$wood</td><td>$stone</td><td>$iron</td><td>$gold</td></tr>";
+//        echo "<tr class='table-$class'><td>$created</td><td>$grain</td><td>$wood</td><td>$stone</td><td>$iron</td><td>$gold</td></tr>";
     }
 }
     
