@@ -12,7 +12,7 @@ $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$passw
 function echoTransactions() {
     global $pdo;
     $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
-    $stmt->bindParam(':id', 1);
+//    $stmt->bindParam(':id', 1);
     //        $stmt->execute();
     //        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
     //            var_dump($row)
