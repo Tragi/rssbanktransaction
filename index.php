@@ -71,6 +71,7 @@ try {
         $row = $stmt->fetch();
         $userId = 0;
         if (!$row) {
+            $userName = $user;
             $stmt = $pdo->prepare("INSERT INTO users (Name, Role, Created) VALUES (:name, 1, :created)");
             $stmt->bindParam(':name', $user);
             $stmt->bindValue(':created', date('Y-m-d H:i:s'));
