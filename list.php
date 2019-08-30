@@ -13,6 +13,6 @@
         <?php $sum = echoTransactions(); ?>
     </tbody>
 </table>
-<table class="table table-sm "><tbody>
+<table class="table table-sm "><thead>
 <?php echo $sum; ?>
-</tbody></table>
+</thead></table>

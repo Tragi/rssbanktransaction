@@ -32,7 +32,7 @@ function echoTransactions() {
         $gold = number_format($row["gold"], 0, ',', ' ');
         echo "<tr class='table-$class'><td>$created</td><td>$grain</td><td>$wood</td><td>$stone</td><td>$iron</td><td>$gold</td></tr>";
     }
-    return "<tr class='table-primary'><td>Suma</td><td>$sumGrain</td><td>$sumWood</td><td>$sumStone</td><td>$sumIron</td><td>$sumGold</td></tr>";
+    return "<tr class='table-primary'><th scope=\"col\">Suma</th><th scope=\"col\">$sumGrain</th><th scope=\"col\">$sumWood</th><th scope=\"col\">$sumStone</th><th scope=\"col\">$sumIron</th><th scope=\"col\">$sumGold</th></tr>";
 }
     
 try {
