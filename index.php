@@ -84,7 +84,7 @@ try {
         $row = $stmt->fetch();
         $userId = 0;
         if (!$row) {
-            $stmt = $pdo->prepare("INSERT INTO users (Name, Role, Gold, Created) VALUES (:name, 1, :created)");
+            $stmt = $pdo->prepare("INSERT INTO users (Name, Role, Created) VALUES (:name, 1, :created)");
             $stmt->bindParam(':name', $user);
             $stmt->bindValue(':created', date('Y-m-d H:i:s'));
             $stmt->execute();
