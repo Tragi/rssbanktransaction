@@ -18,8 +18,7 @@
             <td>10 000 000</td>
             <td>10 000 000</td>
         </tr>
-    </tbody>
-    <tbody>
+
         <tr class="table-success">
             <td>1.1.19</td>
             <td>10 000 000</td>
@@ -28,8 +27,6 @@
             <td>10 000 000</td>
             <td>10 000 000</td>
         </tr>
-    </tbody>
-    <tbody>
         <tr class="table-danger">
             <td>1.1.19</td>
             <td>10 000 000</td>

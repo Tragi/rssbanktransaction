@@ -15,7 +15,8 @@ function echoTransactions() {
     $stmt->bindValue(':id', 1);
     $stmt->execute();
     while ($row = $stmt->fetchAll()) {
-        var_dump($row);
+         
+        var_dump($row["id"]);
     }
 }
     
@@ -43,6 +44,7 @@ try {
         echoTransactions();
         include("template.php");
     } else {
+        header("Status: 200");
         var_dump($_POST);
         $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
         $stmt->bindValue(':uid', 1);
