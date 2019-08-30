@@ -10,14 +10,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="table-primary">
-            <td>Suma</td>
-            <td>10 000 000</td>
-            <td>10 000 000</td>
-            <td>10 000 000</td>
-            <td>10 000 000</td>
-            <td>10 000 000</td>
-        </tr>
-        <?php echoTransactions(); ?>
+        <?php $sum = echoTransactions(); ?>
     </tbody>
 </table>
+<table class="table table-sm "><tbody>
+<?php echo $sum; ?>
+</tbody></table>

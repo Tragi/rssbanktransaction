@@ -15,10 +15,16 @@ function echoTransactions() {
     $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id ORDER BY id DESC");
     $stmt->bindValue(':id', 1);
     $stmt->execute();
+    $sumGrain = 0;$sumWood = 0;$sumStone = 0;$sumIron = 0;$sumGold = 0;
     while ($row = $stmt->fetch()) {
 //        var_dump($row);
         $class = $row["type"] == 1 ? "success" : "danger";
         $created = $row["created"];
+        $sumGrain += $grain * ($row["type"] == 1 ? 1 : -1);
+        $sumWood += $wood * ($row["type"] == 1 ? 1 : -1);
+        $sumStone += $grain * ($row["type"] == 1 ? 1 : -1);
+        $sumIron += $iron * ($row["type"] == 1 ? 1 : -1);
+        $sumGold += $gold * ($row["type"] == 1 ? 1 : -1);
         $grain = number_format($row["grain"], 0, ',', ' ');
         $wood = number_format($row["wood"], 0, ',', ' ');
         $stone = number_format($row["stone"], 0, ',', ' ');
@@ -26,6 +32,7 @@ function echoTransactions() {
         $gold = number_format($row["gold"], 0, ',', ' ');
         echo "<tr class='table-$class'><td>$created</td><td>$grain</td><td>$wood</td><td>$stone</td><td>$iron</td><td>$gold</td></tr>";
     }
+    return "<tr class='table-primary'><td>Suma</td><td>$sumGrain</td><td>$sumWood</td><td>$sumStone</td><td>$sumIron</td><td>$sumGold</td></tr>";
 }
     
 try {
