@@ -29,14 +29,24 @@
             $stone = number_format($row["stone"], 0, ',', ' ');
             $iron = number_format($row["iron"], 0, ',', ' ');
             $gold = number_format($row["gold"], 0, ',', ' ');
-            echo "<tr class='table-'><td style=\"width:100px\">$name</td><td style=\"width:120px\">$grain</td><td style=\"width:120px\">$wood</td><td style=\"width:120px\">$stone</td><td style=\"width:120px\">$iron</td><td style=\"width:120px\">$gold</td></tr>";
+            $grainClass = $row["grain"] > 0 ? "table-success" : ($row["grain"] == 0 ? "table-info" : "table-danger");
+            $woodClass = $row["wood"] > 0 ? "table-success" : ($row["wood"] == 0 ? "table-info" : "table-danger");
+            $stoneClass = $row["stone"] > 0 ? "table-success" : ($row["stone"] == 0 ? "table-info" : "table-danger");
+            $ironClass = $row["iron"] > 0 ? "table-success" : ($row["iron"] == 0 ? "table-info" : "table-danger");
+            $goldClass = $row["grain"] > 0 ? "table-success" : ($row["grain"] == 0 ? "table-info" : "table-danger");
+            echo "<tr class='table-'><td class=\"$grainClass\" style=\"width:100px\">$name</td><td style=\"width:120px\">$grain</td><td class=\"$grainWood\" style=\"width:120px\">$wood</td><td class=\"$stoneClass\" style=\"width:120px\">$stone</td><td class=\"$ironClass\" style=\"width:120px\">$iron</td><td class=\"$goldClass\" style=\"width:120px\">$gold</td></tr>";
         }
         $grain = number_format($sumGrain, 0, ',', ' ');
         $wood = number_format($sumWood, 0, ',', ' ');
         $stone = number_format($sumStone, 0, ',', ' ');
         $iron = number_format($sumIron, 0, ',', ' ');
         $gold = number_format($sumGold, 0, ',', ' ');
-        return "<tr class='table-primary'><td scope=\"col\" style=\"width:100px\">Součet</td><td scope=\"col\" style=\"width:120px\">$grain</td><td scope=\"col\" style=\"width:120px\">$wood</td><td scope=\"col\" style=\"width:120px\">$stone</td><td scope=\"col\" style=\"width:120px\">$iron</td><td scope=\"col\" style=\"width:120px\">$gold</td></tr>";
+        $grainClass = $row["grain"] > 0 ? "table-success" : ($row["grain"] == 0 ? "table-info" : "table-danger");
+        $woodClass = $row["wood"] > 0 ? "table-success" : ($row["wood"] == 0 ? "table-info" : "table-danger");
+        $stoneClass = $row["stone"] > 0 ? "table-success" : ($row["stone"] == 0 ? "table-info" : "table-danger");
+        $ironClass = $row["iron"] > 0 ? "table-success" : ($row["iron"] == 0 ? "table-info" : "table-danger");
+        $goldClass = $row["grain"] > 0 ? "table-success" : ($row["grain"] == 0 ? "table-info" : "table-danger");
+        return "<tr class='table-primary'><td scope=\"col\" style=\"width:100px\">Součet</td><td class=\"$grainClass\" scope=\"col\" style=\"width:120px\">$grain</td><td class=\"$woodClass\" scope=\"col\" style=\"width:120px\">$wood</td><td class=\"$stoneClass\" scope=\"col\" style=\"width:120px\">$stone</td><td class=\"$ironClass\" scope=\"col\" style=\"width:120px\">$iron</td><td class=\"$goldClass\" scope=\"col\" style=\"width:120px\">$gold</td></tr>";
     }
     
     
