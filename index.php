@@ -89,14 +89,14 @@ try {
             $stmt->bindValue(':created', date('Y-m-d H:i:s'));
             $stmt->execute();
             $userId = $pdo->lastInsertId();
-            echo "here";
         } else {
-            var_dump($row);
+            $userId = $row["ID"]
         }
-        
+        echo $userId;
+//        $_SESSION["userID"] = userID
     }
     
-    if (!isset($_SESSION["userID"])) {
+    if (!isset($_SESSION["userID"]) && $_SESSION["userID"] > 0) {
         include("login.html");
     } elseif (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
         include("template.php");
