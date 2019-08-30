@@ -13,7 +13,7 @@ $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$passw
 function echoTransactions() {
     global $pdo;
     $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id ORDER BY id DESC");
-    $stmt->bindValue(':id', 1);
+    $stmt->bindParam(':id', isset($_SESSION["userID"]) ? $_SESSION["userID"] : 0);
     $stmt->execute();
     $sumGrain = 0;$sumWood = 0;$sumStone = 0;$sumIron = 0;$sumGold = 0;
     while ($row = $stmt->fetch()) {
