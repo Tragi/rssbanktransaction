@@ -11,7 +11,12 @@ $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$passw
 
 function echoTransactions() {
     global $pdo;
-    
+    $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
+    $stmt->bindValue(':id', 1);
+    $stmt->execute();
+    while ($row = $stmt->fetchAll()) {
+        var_dump($row);
+    }
 }
     
 try {
@@ -33,13 +38,6 @@ try {
 //    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
 //        throw new Exception('Request method must be POST!');
 //    }
-    
-    $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
-    $stmt->bindValue(':id', 1);
-    $stmt->execute();
-    while ($row = $stmt->fetchAll()) {
-        var_dump($row);
-    }
     
     if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
         echoTransactions();
