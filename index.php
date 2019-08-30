@@ -48,7 +48,7 @@ function createTransaction() {
     $stmt->bindParam(':uid', $_SESSION["userID"]);
     $stmt->bindParam(':bid', $_POST["bank"]);
     $stmt->bindValue(':type', isset($_POST["transaction"]) ? 1 : 0);
-    $stmt->bindParam(':grain', $_POST["grain"] * $multiplier);
+    $stmt->bindValue(':grain', $_POST["grain"] * $multiplier);
     $stmt->bindParam(':wood', $_POST["wood"] * $multiplier);
     $stmt->bindParam(':stone', $_POST["stone"] * $multiplier);
     $stmt->bindParam(':iron', $_POST["iron"] * $multiplier);
