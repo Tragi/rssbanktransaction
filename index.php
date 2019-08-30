@@ -61,12 +61,10 @@ try {
         $stmt->bindParam(':stone', $_POST["stone"]);
         $stmt->bindParam(':iron', $_POST["iron"]);
         $stmt->bindParam(':gold', $_POST["gold"]);
-        $stmt->bindParam(':created', date('Y-m-d H:i:s'));
+        $stmt->bindValue(':created', date('Y-m-d H:i:s'));
         $stmt->execute();
         include("list.php");
     }
-
-    $pdo->close();
 } catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
