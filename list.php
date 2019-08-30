@@ -1,12 +1,12 @@
 <table class="table table-sm ">
     <thead>
         <tr>
-            <th scope="col">Datum</th>
-            <th scope="col">Grain</th>
-            <th scope="col">Wood</th>
-            <th scope="col">Stone</th>
-            <th scope="col">Iron</th>
-            <th scope="col">Gold</th>
+            <th scope="col" style="width:30%">Datum</th>
+            <th scope="col" style="width:14%">Grain</th>
+            <th scope="col" style="width:14%">Wood</th>
+            <th scope="col" style="width:14%">Stone</th>
+            <th scope="col" style="width:14%">Iron</th>
+            <th scope="col" style="width:14%">Gold</th>
         </tr>
     </thead>
     <tbody>
