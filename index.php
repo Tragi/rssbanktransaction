@@ -30,7 +30,9 @@ try {
 //    }
     
     function echoTransactions() {
-        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
+        $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
+
+//        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
 //        $stmt->bindParam(':id', 1);
 //        $stmt->execute();
 //        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
