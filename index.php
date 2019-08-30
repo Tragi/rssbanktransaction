@@ -13,7 +13,7 @@ $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$passw
 function echoTransactions() {
     global $pdo;
     $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id ORDER BY id DESC");
-    $stmt->bindParam(':id', isset($_SESSION["userID"]) ? $_SESSION["userID"] : 0);
+    $stmt->bindValue(':id', isset($_SESSION["userID"]) ? $_SESSION["userID"] : 0);
     $stmt->execute();
     $sumGrain = 0;$sumWood = 0;$sumStone = 0;$sumIron = 0;$sumGold = 0;
     while ($row = $stmt->fetch()) {
@@ -97,12 +97,12 @@ try {
     
     if (!isset($_SESSION["userID"]) || (isset($_SESSION["userID"]) && $_SESSION["userID"] <= 0)) {
         include("login.html");
-    } elseif (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
-        include("template.php");
     } elseif (isset($_POST["bank"])) {
         header("Status: 200");
         createTransaction();
         include("list.php");
+    } else {
+        include("template.php");
     }
 } catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
