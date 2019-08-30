@@ -31,7 +31,7 @@ try {
     
     function echoTransactions() {
         $stmt = $pdo->prepare("SELECT * FROM transactions");
-//        $stmt->execute();
+        $stmt->execute();
 //        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 //
 //        echo $result;
