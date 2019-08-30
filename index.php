@@ -10,6 +10,7 @@ $username = 'zhtzkjcvxxjmfk';
 $password = '0d089aae8342db654d90cb7cb2e652bdf303918af61f9d997f380a80aba204f0';
 $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$password";
 
+
 function echoTransactions() {
     global $pdo;
     $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id ORDER BY id DESC");
@@ -97,7 +98,13 @@ try {
         $_SESSION["userID"] = $userId;
     } elseif (isset($_SESSION["userID"])) {
         $_SESSION["userID"] = $_SESSION["userID"];
-        var_dump($_SESSION["userID"]);
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE Id = :id");
+        $stmt->bindParam(':name', $_SESSION["userID"]);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        if ($row) {
+            $userName = $row["name"];
+        }
     }
     
     if (!isset($_SESSION["userID"]) || (isset($_SESSION["userID"]) && $_SESSION["userID"] <= 0)) {
