@@ -34,9 +34,9 @@ try {
         $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
         $stmt->bindParam(':id', 1);
         $stmt->execute();
-        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-            var_dump($row)
-        }
+//        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+//            var_dump($row)
+//        }
     }
     
     if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
