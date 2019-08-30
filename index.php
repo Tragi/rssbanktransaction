@@ -31,7 +31,7 @@ try {
         include("template.php");
     } else {
         var_dump($_POST);
-//        $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created)");
+        $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created)");
 //        $stmt->bindParam(':uid', 1);
 //        $stmt->bindParam(':bid', 1);
 //        $stmt->bindParam(':grain', $email);
@@ -40,11 +40,8 @@ try {
 //        $stmt->bindParam(':iron', $email);
 //        $stmt->bindParam(':gold', $email);
 //        $stmt->bindParam(':created', $email);
-//        
-//        $sql = "INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created) VALUES (1, 1, 'alvin', now(), now());"
-//        echo $stmt->execute();
-        
-
+//
+        $stmt->execute();
     }
 //    include("template.php");
     $pdo->close();
