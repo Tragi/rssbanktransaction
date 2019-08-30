@@ -15,7 +15,7 @@ function echoTransactions() {
     $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
     $stmt->bindValue(':id', 1);
     $stmt->execute();
-    while ($row = $stmt->fetchAll()) {
+    while ($row = $stmt->fetch()) {
 //        var_dump($row);
         $class = $row["type"] == 1 ? "success" : "danger";
         $created = $row["created"];
