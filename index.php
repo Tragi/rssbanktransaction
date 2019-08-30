@@ -77,11 +77,23 @@ try {
     
     session_start();
     if (isset($_POST["user"])) {
+        $user = trim($_POST["user"]);
         $stmt = $pdo->prepare("SELECT * FROM users WHERE Name = :name");
-        $stmt->bindParam(':name', $_POST["user"]);
+        $stmt->bindParam(':name', $user);
         $stmt->execute();
         $row = $stmt->fetch();
-        var_dump($row);
+        $userId = 0
+        if (!$row) {
+            $stmt = $pdo->prepare("INSERT INTO users (Name, Role, Gold, Created) VALUES (:name, 1, :created)");
+            $stmt->bindParam(':name', $user);
+            $stmt->bindValue(':created', date('Y-m-d H:i:s'));
+            $stmt->execute();
+            $userId = $pdo->lastInsertId();
+            echo "here";
+        } else {
+            var_dump($row);
+        }
+        
     }
     
     if (!isset($_SESSION["userID"])) {
