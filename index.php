@@ -80,8 +80,8 @@ try {
         $stmt = $pdo->prepare("SELECT * FROM users WHERE Name = :name");
         $stmt->bindParam(':name', $_POST["user"]);
         $stmt->execute();
-        $row = $stmt->fetch()
-        var_dump($row)
+        $row = $stmt->fetch();
+        var_dump($row);
     }
     
     if (!isset($_SESSION["userID"])) {
