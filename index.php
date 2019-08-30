@@ -37,9 +37,9 @@ try {
     $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
     $stmt->bindValue(':id', 1);
     $stmt->execute();
-    while ($row = $stmt->fetchAll()) {
-        var_dump($row)
-    }
+//    while ($row = $stmt->fetchAll()) {
+//        var_dump($row)
+//    }
     
     if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
         echoTransactions();
