@@ -18,7 +18,7 @@
         
         $sumGrain = 0;$sumWood = 0;$sumStone = 0;$sumIron = 0;$sumGold = 0;
         while ($row = $stmt->fetch()) {
-            $name = $row["uid"];
+            $name = $row["name"];
             $sumGrain += $row["grain"];
             $sumWood += $row["wood"];
             $sumStone += $row["stone"];
