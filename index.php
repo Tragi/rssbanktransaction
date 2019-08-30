@@ -43,15 +43,16 @@ function echoTransactions() {
     
 function createTransaction() {
     global $pdo, $_POST;
+    $multiplier = isset($_POST["transaction"]) ? 1 : -1;
     $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
     $stmt->bindParam(':uid', $_SESSION["userID"]);
     $stmt->bindParam(':bid', $_POST["bank"]);
     $stmt->bindValue(':type', isset($_POST["transaction"]) ? 1 : 0);
-    $stmt->bindParam(':grain', $_POST["grain"]);
-    $stmt->bindParam(':wood', $_POST["wood"]);
-    $stmt->bindParam(':stone', $_POST["stone"]);
-    $stmt->bindParam(':iron', $_POST["iron"]);
-    $stmt->bindParam(':gold', $_POST["gold"]);
+    $stmt->bindParam(':grain', $_POST["grain"] * $multiplier);
+    $stmt->bindParam(':wood', $_POST["wood"] * $multiplier);
+    $stmt->bindParam(':stone', $_POST["stone"] * $multiplier);
+    $stmt->bindParam(':iron', $_POST["iron"] * $multiplier);
+    $stmt->bindParam(':gold', $_POST["gold"] * $multiplier);
     $stmt->bindValue(':created', date('Y-m-d H:i:s'));
     $stmt->execute();
 }

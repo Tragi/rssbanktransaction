@@ -17,7 +17,7 @@
         $stmt->execute();
         
         $sumGrain = 0;$sumWood = 0;$sumStone = 0;$sumIron = 0;$sumGold = 0;
-        while ($row = $stmt->fetchAll()) {
+        while ($row = $stmt->fetch()) {
                     var_dump($row);
             $name = $row["name"];
             $sumGrain += $row["grain"] * ($row["type"] == 1 ? 1 : -1);
@@ -60,6 +60,9 @@
         //    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
         //        throw new Exception('Request method must be POST!');
         //    }
+        
+            $sql ="DELETE FROM transactions;";
+            $pdo->exec($sql);
         
         include("summaryTemplate.php");
         
