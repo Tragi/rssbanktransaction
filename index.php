@@ -77,7 +77,11 @@ try {
     
     session_start();
     if (isset($_POST["user"])) {
-        var_dump($_POST);
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE Name = :name");
+        $stmt->bindParam(':name', $_POST["user"]);
+        $stmt->execute();
+        $row = $stmt->fetch()
+        var_dump($row)
     }
     
     if (!isset($_SESSION["userID"])) {
