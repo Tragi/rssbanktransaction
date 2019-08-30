@@ -13,7 +13,7 @@
     
     function echoTransactions() {
         global $pdo;
-        $stmt = $pdo->prepare("SELECT uid, SUM(grain) FROM transactions GROUP BY uid");
+        $stmt = $pdo->prepare("SELECT transactions.uid SUM(transactions.grain) AS grain FROM transactions LEFT JOIN users .uid = users.id GROUP BY transactions.uid");
         $stmt->execute();
         
         $sumGrain = 0;$sumWood = 0;$sumStone = 0;$sumIron = 0;$sumGold = 0;
