@@ -38,7 +38,7 @@ try {
     $stmt->bindValue(':id', 1);
     $stmt->execute();
 //    while ($row = $stmt->fetchAll()) {
-//        var_dump($row)
+        var_dump($stmt->fetchAll())
 //    }
     
     if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
