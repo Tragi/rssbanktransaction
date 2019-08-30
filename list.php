@@ -12,6 +12,6 @@
     <tbody>
         <?php $sum = echoTransactions(); ?>
     </tbody>
-    <thead>
+    <tfoot>
         <?php echo $sum; ?>
-</thead></table>
+</tfoot></table>

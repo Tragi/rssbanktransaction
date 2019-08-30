@@ -37,7 +37,7 @@ function echoTransactions() {
     $stone = number_format($sumStone, 0, ',', ' ');
     $iron = number_format($sumIron, 0, ',', ' ');
     $gold = number_format($sumGold, 0, ',', ' ');
-    return "<tr class='table-primary'><th scope=\"col\" style=\"width:220px\">Suma</th><th scope=\"col\" style=\"width:120px\">$grain</th><th scope=\"col\" style=\"width:120px\">$wood</th><th scope=\"col\" style=\"width:120px\">$stone</th><th scope=\"col\" style=\"width:120px\">$iron</th><th scope=\"col\" style=\"width:120px\">$gold</th></tr>";
+    return "<tr class='table-primary'><td scope=\"col\" style=\"width:220px\">Suma</td><td scope=\"col\" style=\"width:120px\">$grain</td><td scope=\"col\" style=\"width:120px\">$wood</td><td scope=\"col\" style=\"width:120px\">$stone</td><td scope=\"col\" style=\"width:120px\">$iron</td><td scope=\"col\" style=\"width:120px\">$gold</td></tr>";
 }
     
 try {
