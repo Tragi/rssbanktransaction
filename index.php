@@ -53,9 +53,10 @@ try {
         $stmt->bindParam(':iron', $_POST["iron"]);
         $stmt->bindParam(':gold', $_POST["gold"]);
         echo ($_POST["transaction"] == 'on') ? "ano" : "ne";
-        $stmt->bindValue(':type', (($_POST["transaction"] == 'on') ? 1 : 0));
+        $stmt->bindValue(':type', 1);
         $stmt->bindParam(':created', date('Y-m-d H:i:s'));
-//
+        echo "hotovo";
+        
         $stmt->execute();
     }
 //    include("template.php");
