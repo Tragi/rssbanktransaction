@@ -82,7 +82,7 @@ try {
         $stmt->bindParam(':name', $user);
         $stmt->execute();
         $row = $stmt->fetch();
-        $userId = 0
+        $userId = 0;
         if (!$row) {
             $stmt = $pdo->prepare("INSERT INTO users (Name, Role, Gold, Created) VALUES (:name, 1, :created)");
             $stmt->bindParam(':name', $user);
