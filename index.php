@@ -99,7 +99,7 @@ try {
     } elseif (isset($_SESSION["userID"])) {
         $_SESSION["userID"] = $_SESSION["userID"];
         $stmt = $pdo->prepare("SELECT * FROM users WHERE Id = :id");
-        $stmt->bindParam(':name', $_SESSION["userID"]);
+        $stmt->bindParam(':id', $_SESSION["userID"]);
         $stmt->execute();
         $row = $stmt->fetch();
         if ($row) {
