@@ -45,8 +45,8 @@ try {
     } else {
         var_dump($_POST);
         $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
-        $stmt->bindParam(':uid', 1);
-        $stmt->bindParam(':bid', 1);
+        $stmt->bindValue(':uid', 1);
+        $stmt->bindValue(':bid', 1);
         $stmt->bindParam(':grain', $_POST["grain"]);
         $stmt->bindParam(':wood', $_POST["wood"]);
         $stmt->bindParam(':stone', $_POST["stone"]);
