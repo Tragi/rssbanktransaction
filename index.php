@@ -95,9 +95,9 @@ try {
             $userName = $row["name"];
         }
         $_SESSION["userID"] = $userId;
-    } else  {
+    } else {
         $_SESSION["userID"] = $_SESSION["userID"];
-        var_dump($_SESSION["userID"])
+        var_dump($_SESSION["userID"]);
     }
     
     if (!isset($_SESSION["userID"]) || (isset($_SESSION["userID"]) && $_SESSION["userID"] <= 0)) {
