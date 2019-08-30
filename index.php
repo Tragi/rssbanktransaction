@@ -92,7 +92,7 @@ try {
         } else {
             $userId = $row["id"];
         }
-        $_SESSION["userID"] = $userID;
+        $_SESSION["userID"] = $userId;
     }
     
     if (!isset($_SESSION["userID"]) || (isset($_SESSION["userID"]) && $_SESSION["userID"] <= 0)) {
