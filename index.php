@@ -44,7 +44,7 @@ function echoTransactions() {
 function createTransaction() {
     global $pdo, $_POST;
     $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
-    $stmt->bindValue(':uid', 1);
+    $stmt->bindParam(':uid', $_SESSION["userID"]);
     $stmt->bindParam(':bid', $_POST["bank"]);
     $stmt->bindValue(':type', isset($_POST["transaction"]) ? 1 : 0);
     $stmt->bindParam(':grain', $_POST["grain"]);
