@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="p2 col-8">
-                    <h2>Historie pohybu</h2>
+                    <h2>Historie pohybů</h2>
                     <div class="" id="transactionList">
                         <?php include("list.php"); ?>
                     </div>
