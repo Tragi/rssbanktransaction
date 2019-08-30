@@ -1,12 +1,12 @@
 <table class="table table-sm fixed_header">
     <thead>
         <tr>
-            <th scope="col" style="width:30%">Datum</th>
-            <th scope="col" style="width:14%">Grain</th>
-            <th scope="col" style="width:14%">Wood</th>
-            <th scope="col" style="width:14%">Stone</th>
-            <th scope="col" style="width:14%">Iron</th>
-            <th scope="col" style="width:14%">Gold</th>
+            <th scope="col" style="width:220px">Datum</th>
+            <th scope="col" style="width:120px">Grain</th>
+            <th scope="col" style="width:120px">Wood</th>
+            <th scope="col" style="width:120px">Stone</th>
+            <th scope="col" style="width:120px">Iron</th>
+            <th scope="col" style="width:120px">Gold</th>
         </tr>
     </thead>
     <tbody>
