@@ -80,9 +80,9 @@ try {
     if (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
         include("template.php");
     } else {
-        header("Status: 200");
-        createTransaction()
-        include("list.php");
+//        header("Status: 200");
+//        createTransaction()
+//        include("list.php");
     }
 } catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
