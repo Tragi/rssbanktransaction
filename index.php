@@ -26,8 +26,10 @@ try {
 } catch(PDOException $e) {
     echo $e->getMessage();//Remove or change message in production code
 }
-    var_dump($argv);
-
+//    var_dump($_POST);
+    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
+        throw new Exception('Request method must be POST!');
+    }
     
     include("template.php");
 ?>
