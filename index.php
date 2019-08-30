@@ -30,6 +30,7 @@ try {
 //    }
     
     function echoTransactions() {
+        global $pdo;
         $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
 
 //        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id");
