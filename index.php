@@ -15,8 +15,14 @@ function echoTransactions() {
     $stmt->bindValue(':id', 1);
     $stmt->execute();
     while ($row = $stmt->fetchAll()) {
-         
-        var_dump($row["id"]);
+        $class = $row["type"] == 1 ? "success" : "danger";
+        $created = $row["created"];
+        $grain = number_format($row["grain"], 2, ' ', '.');
+        $wood = number_format($row["wood"], 2, ' ', '.');
+        $stone = number_format($row["stone"], 2, ' ', '.');
+        $iron = number_format($row["iron"], 2, ' ', '.');
+        $gold = number_format($row["gold"], 2, ' ', '.');
+        echo '<tr class="table-$class"><td>$created</td><td>$grain</td><td>$wood</td><td>$stone</td><td>$iron</td><td>$gold</td></tr>';
     }
 }
     
