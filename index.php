@@ -33,7 +33,7 @@ try {
     if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
         include("template.php");
     } else {
-        var_dump($_POST['grain']);
+        var_dump($_POST);
     }
 //    include("template.php");
 ?>
