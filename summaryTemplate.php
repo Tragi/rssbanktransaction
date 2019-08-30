@@ -10,7 +10,7 @@
                         <table class="table table-sm fixed_header">
                             <thead>
                                 <tr>
-                                    <th scope="col" style="width:220px">Uživatel</th>
+                                    <th scope="col" style="width:100px">Uživatel</th>
                                     <th scope="col" style="width:120px">Grain</th>
                                     <th scope="col" style="width:120px">Wood</th>
                                     <th scope="col" style="width:120px">Stone</th>

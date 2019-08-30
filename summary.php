@@ -13,32 +13,31 @@
     
     function echoTransactions() {
         global $pdo;
-        $stmt = $pdo->prepare("SELECT transactions.uid, SUM(transactions.grain) AS grain FROM transactions LEFT JOIN users ON transactions.uid = users.id GROUP BY uid");
+        $stmt = $pdo->prepare("SELECT transactions.uid, users.name, SUM(transactions.grain) AS grain, SUM(transactions.wood) AS grain, SUM(transactions.wood) AS grain, SUM(transactions.stone) AS stone, SUM(transactions.iron) AS iron, SUM(transactions.gold) AS gold FROM transactions LEFT JOIN users ON transactions.uid = users.id GROUP BY uid");
         $stmt->execute();
         
         $sumGrain = 0;$sumWood = 0;$sumStone = 0;$sumIron = 0;$sumGold = 0;
-        while ($row = $stmt->fetch()) {
+        while ($row = $stmt->fetchAll()) {
                     var_dump($row);
-//            $class = $row["type"] == 1 ? "success" : "danger";
-//            $created = $row["created"];
-//            $sumGrain += $row["grain"] * ($row["type"] == 1 ? 1 : -1);
-//            $sumWood += $row["wood"] * ($row["type"] == 1 ? 1 : -1);
-//            $sumStone += $row["stone"] * ($row["type"] == 1 ? 1 : -1);
-//            $sumIron += $row["iron"] * ($row["type"] == 1 ? 1 : -1);
-//            $sumGold += $row["gold"] * ($row["type"] == 1 ? 1 : -1);
-//            $grain = number_format($row["grain"], 0, ',', ' ');
-//            $wood = number_format($row["wood"], 0, ',', ' ');
-//            $stone = number_format($row["stone"], 0, ',', ' ');
-//            $iron = number_format($row["iron"], 0, ',', ' ');
-//            $gold = number_format($row["gold"], 0, ',', ' ');
-//            echo "<tr class='table-$class'><td style=\"width:220px\">$created</td><td style=\"width:120px\">$grain</td><td style=\"width:120px\">$wood</td><td style=\"width:120px\">$stone</td><td style=\"width:120px\">$iron</td><td style=\"width:120px\">$gold</td></tr>";
+            $name = $row["name"];
+            $sumGrain += $row["grain"] * ($row["type"] == 1 ? 1 : -1);
+            $sumWood += $row["wood"] * ($row["type"] == 1 ? 1 : -1);
+            $sumStone += $row["stone"] * ($row["type"] == 1 ? 1 : -1);
+            $sumIron += $row["iron"] * ($row["type"] == 1 ? 1 : -1);
+            $sumGold += $row["gold"] * ($row["type"] == 1 ? 1 : -1);
+            $grain = number_format($row["grain"], 0, ',', ' ');
+            $wood = number_format($row["wood"], 0, ',', ' ');
+            $stone = number_format($row["stone"], 0, ',', ' ');
+            $iron = number_format($row["iron"], 0, ',', ' ');
+            $gold = number_format($row["gold"], 0, ',', ' ');
+            echo "<tr class='table-$class'><td style=\"width:100px\">$name</td><td style=\"width:120px\">$grain</td><td style=\"width:120px\">$wood</td><td style=\"width:120px\">$stone</td><td style=\"width:120px\">$iron</td><td style=\"width:120px\">$gold</td></tr>";
         }
         $grain = number_format($sumGrain, 0, ',', ' ');
         $wood = number_format($sumWood, 0, ',', ' ');
         $stone = number_format($sumStone, 0, ',', ' ');
         $iron = number_format($sumIron, 0, ',', ' ');
         $gold = number_format($sumGold, 0, ',', ' ');
-        return "<tr class='table-primary'><td scope=\"col\" style=\"width:220px\">Součet</td><td scope=\"col\" style=\"width:120px\">$grain</td><td scope=\"col\" style=\"width:120px\">$wood</td><td scope=\"col\" style=\"width:120px\">$stone</td><td scope=\"col\" style=\"width:120px\">$iron</td><td scope=\"col\" style=\"width:120px\">$gold</td></tr>";
+        return "<tr class='table-primary'><td scope=\"col\" style=\"width:100px\">Součet</td><td scope=\"col\" style=\"width:120px\">$grain</td><td scope=\"col\" style=\"width:120px\">$wood</td><td scope=\"col\" style=\"width:120px\">$stone</td><td scope=\"col\" style=\"width:120px\">$iron</td><td scope=\"col\" style=\"width:120px\">$gold</td></tr>";
     }
     
     
