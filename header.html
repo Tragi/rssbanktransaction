@@ -17,24 +17,20 @@
                        var input = $("#" + resources[i] + "Input");
                        slider.val("0");
                        input.val("0");
-                       slider.on("input change", function(e) {
-                                 input.val($(this).val())
-                                 });
-                       input.on("input change", function(e) {
-                                slider.val($(this).val())
-                                });
+                       slider.on("input change", function(e) { input.val($(this).val()) });
+                       input.on("input change", function(e) { slider.val($(this).val()) });
                        })(i)
                       }
                       $("button#submit").click(function(){
-                                               alert($("#transactionForm").serialize())
-                                               $.ajax({
-                                                      type: "POST",
-                                                      url: "/.",
-                                                      data: $("#transactionForm").serialize(),
-                                                      success: function(msg){},
-                                                      error: function(){}
-                                                      })
-                                               });
+                           alert($("#transactionForm.input[name=grain]").val())
+                        
+                           $.ajax({type: "POST", url: "/.", data: $("#transactionForm").serialize(),
+                                  success: function(msg){
+                                    alert(msg)
+                                  },
+                                  error: function(){}
+                                  })
+                           });
                       });
     </script>
     <style>
