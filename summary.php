@@ -13,13 +13,12 @@
     
     function echoTransactions() {
         global $pdo;
-        $stmt = $pdo->prepare("SELECT transactions.uid, users.name, SUM(transactions.grain) AS grain, SUM(transactions.wood) AS grain, SUM(transactions.wood) AS grain, SUM(transactions.stone) AS stone, SUM(transactions.iron) AS iron, SUM(transactions.gold) AS gold FROM transactions LEFT JOIN users ON transactions.uid = users.id GROUP BY transactions.uid, users.name");
+        $stmt = $pdo->prepare("SELECT transactions.uid, SUM(transactions.grain) AS grain, SUM(transactions.wood) AS grain, SUM(transactions.wood) AS wood, SUM(transactions.stone) AS stone, SUM(transactions.iron) AS iron, SUM(transactions.gold) AS gold FROM transactions GROUP BY transactions.uid");
         $stmt->execute();
         
         $sumGrain = 0;$sumWood = 0;$sumStone = 0;$sumIron = 0;$sumGold = 0;
         while ($row = $stmt->fetch()) {
-                    var_dump($row);
-            $name = $row["name"];
+            $name = $row["uid"];
             $sumGrain += $row["grain"];
             $sumWood += $row["wood"];
             $sumStone += $row["stone"];
@@ -30,7 +29,7 @@
             $stone = number_format($row["stone"], 0, ',', ' ');
             $iron = number_format($row["iron"], 0, ',', ' ');
             $gold = number_format($row["gold"], 0, ',', ' ');
-            echo "<tr class='table-$class'><td style=\"width:100px\">$name</td><td style=\"width:120px\">$grain</td><td style=\"width:120px\">$wood</td><td style=\"width:120px\">$stone</td><td style=\"width:120px\">$iron</td><td style=\"width:120px\">$gold</td></tr>";
+            echo "<tr class='table-'><td style=\"width:100px\">$name</td><td style=\"width:120px\">$grain</td><td style=\"width:120px\">$wood</td><td style=\"width:120px\">$stone</td><td style=\"width:120px\">$iron</td><td style=\"width:120px\">$gold</td></tr>";
         }
         $grain = number_format($sumGrain, 0, ',', ' ');
         $wood = number_format($sumWood, 0, ',', ' ');
