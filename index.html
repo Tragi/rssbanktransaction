@@ -40,15 +40,26 @@
             });
         </script>
         <style>
-            .fixed_header tbody {
+            .fixed_header{
+                width: 100%;
+                table-layout: fixed;
+            }
+        
+            .fixed_header tbody{
                 display:block;
+                width: 100%;
                 overflow: auto;
-                height: 300pt;
+                height: 100px;
             }
         
             .fixed_header thead tr {
                 display: block;
             }
+        
+            .fixed_header th, .fixed_header td {
+                width: 200px;
+            }
+
         </style>
     </head>
     <body>
