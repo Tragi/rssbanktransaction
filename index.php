@@ -8,7 +8,7 @@ $dbname = 'd4es7alaadvmih';
 $username = 'zhtzkjcvxxjmfk';
 $password = '0d089aae8342db654d90cb7cb2e652bdf303918af61f9d997f380a80aba204f0';
 $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$password";
-    
+
 try {
     $pdo = new PDO($dsn);
 
@@ -23,9 +23,6 @@ try {
 //    $pdo->exec($sql);
     
     
-} catch(PDOException $e) {
-    echo $e->getMessage();//Remove or change message in production code
-}
 //    var_dump($_POST);
 //    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
 //        throw new Exception('Request method must be POST!');
@@ -34,7 +31,26 @@ try {
         include("template.php");
     } else {
         var_dump($_POST);
+        $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created)");
+        $stmt->bindParam(':uid', 1);
+        $stmt->bindParam(':bid', 1);
+        $stmt->bindParam(':grain', $email);
+        $stmt->bindParam(':wood', $email);
+        $stmt->bindParam(':stone', $email);
+        $stmt->bindParam(':iron', $email);
+        $stmt->bindParam(':gold', $email);
+        $stmt->bindParam(':created', $email);
+        
+        $sql = "INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created) VALUES (1, 1, 'alvin', now(), now());"
+        echo $stmt->execute();
+        
+
     }
 //    include("template.php");
+    $pdo->close();
+} catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+    
 ?>
 
