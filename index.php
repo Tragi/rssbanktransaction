@@ -44,7 +44,6 @@ try {
     $pdo = new PDO($dsn);
 
 	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );//Error Handling
-    $pdo->exec("DELETE FROM transactions");
 //    $sql ="CREATE TABLE banks (ID serial PRIMARY KEY, Name VARCHAR(50) NOT NULL, Created timestamp);" ;
 //    $pdo->exec($sql);
     
