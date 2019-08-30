@@ -31,7 +31,7 @@ try {
 //        throw new Exception('Request method must be POST!');
 //    }
     if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
-       echo $_SERVER;
+       var_dump($_SERVER);
     }
        echo "konec";
 //    include("template.php");
