@@ -96,7 +96,7 @@ try {
 //        $_SESSION["userID"] = userID
     }
     
-    if (!isset($_SESSION["userID"]) && $_SESSION["userID"] > 0) {
+    if (!isset($_SESSION["userID"]) || $_SESSION["userID"] <= 0) {
         include("login.html");
     } elseif (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
         include("template.php");
