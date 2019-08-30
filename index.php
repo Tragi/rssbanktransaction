@@ -22,7 +22,8 @@ try {
 //    $sql ="CREATE TABLE transactions (ID serial PRIMARY KEY, UID integer NOT NULL, BID integer NOT NULL, Grain integer NOT NULL, Wood integer NOT NULL, Stone integer NOT NULL, Iron integer NOT NULL, Gold integer NOT NULL, Created timestamp);";
 //    $pdo->exec($sql);
     
-    
+    $sql ="ALTER TABLE transactions ADD COLUMN Type integer NOT NULL;";
+    $pdo->exec($sql);
 //    var_dump($_POST);
 //    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
 //        throw new Exception('Request method must be POST!');
@@ -31,15 +32,16 @@ try {
         include("template.php");
     } else {
         var_dump($_POST);
-        $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created)");
-//        $stmt->bindParam(':uid', 1);
-//        $stmt->bindParam(':bid', 1);
-//        $stmt->bindParam(':grain', $email);
-//        $stmt->bindParam(':wood', $email);
-//        $stmt->bindParam(':stone', $email);
-//        $stmt->bindParam(':iron', $email);
-//        $stmt->bindParam(':gold', $email);
-//        $stmt->bindParam(':created', $email);
+        $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
+        $stmt->bindParam(':uid', 1);
+        $stmt->bindParam(':bid', 1);
+        $stmt->bindParam(':grain', $_POST["grain"]);
+        $stmt->bindParam(':wood', $_POST["wood"]);
+        $stmt->bindParam(':stone', $_POST["stone"]);
+        $stmt->bindParam(':iron', $_POST["iron"]);
+        $stmt->bindParam(':gold', $_POST["gold"]);
+        $stmt->bindParam(':type', $_POST["transaction"]);
+        $stmt->bindParam(':created', time());
 //
         $stmt->execute();
     }
