@@ -32,7 +32,12 @@ function echoTransactions() {
         $gold = number_format($row["gold"], 0, ',', ' ');
         echo "<tr class='table-$class'><td>$created</td><td>$grain</td><td>$wood</td><td>$stone</td><td>$iron</td><td>$gold</td></tr>";
     }
-    return "<tr class='table-primary'><th scope=\"col\" style=\"width:30%\">Suma</th><th scope=\"col\" style=\"width:14%\">$sumGrain</th><th scope=\"col\" style=\"width:14%\">$sumWood</th><th scope=\"col\" style=\"width:14%\">$sumStone</th><th scope=\"col\" style=\"width:14%\">$sumIron</th><th scope=\"col\" style=\"width:14%\">$sumGold</th></tr>";
+    $grain = number_format($sumGrain, 0, ',', ' ');
+    $wood = number_format($sumWood, 0, ',', ' ');
+    $stone = number_format($sumStone, 0, ',', ' ');
+    $iron = number_format($sumIron, 0, ',', ' ');
+    $gold = number_format($sumGold, 0, ',', ' ');
+    return "<tr class='table-primary'><th scope=\"col\" style=\"width:30%\">Suma</th><th scope=\"col\" style=\"width:14%\">$grain</th><th scope=\"col\" style=\"width:14%\">$wood</th><th scope=\"col\" style=\"width:14%\">$stone</th><th scope=\"col\" style=\"width:14%\">$iron</th><th scope=\"col\" style=\"width:14%\">$gold</th></tr>";
 }
     
 try {

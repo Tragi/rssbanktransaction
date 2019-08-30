@@ -1,4 +1,4 @@
-<table class="table table-sm ">
+<table class="table table-sm fixed_header">
     <thead>
         <tr>
             <th scope="col" style="width:30%">Datum</th>
