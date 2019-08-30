@@ -41,18 +41,18 @@ function echoTransactions() {
 }
     
 function createTransaction() {
-//    global $pdo, $_POST;
-//    $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
-//    $stmt->bindValue(':uid', 1);
-//    $stmt->bindParam(':bid', $_POST["bank"]);
-//    $stmt->bindValue(':type', isset($_POST["transaction"]) ? 1 : 0);
-//    $stmt->bindParam(':grain', $_POST["grain"]);
-//    $stmt->bindParam(':wood', $_POST["wood"]);
-//    $stmt->bindParam(':stone', $_POST["stone"]);
-//    $stmt->bindParam(':iron', $_POST["iron"]);
-//    $stmt->bindParam(':gold', $_POST["gold"]);
-//    $stmt->bindValue(':created', date('Y-m-d H:i:s'));
-//    $stmt->execute();
+    global $pdo, $_POST;
+    $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
+    $stmt->bindValue(':uid', 1);
+    $stmt->bindParam(':bid', $_POST["bank"]);
+    $stmt->bindValue(':type', isset($_POST["transaction"]) ? 1 : 0);
+    $stmt->bindParam(':grain', $_POST["grain"]);
+    $stmt->bindParam(':wood', $_POST["wood"]);
+    $stmt->bindParam(':stone', $_POST["stone"]);
+    $stmt->bindParam(':iron', $_POST["iron"]);
+    $stmt->bindParam(':gold', $_POST["gold"]);
+    $stmt->bindValue(':created', date('Y-m-d H:i:s'));
+    $stmt->execute();
 }
     
 try {
@@ -74,9 +74,11 @@ try {
 //    if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
 //        throw new Exception('Request method must be POST!');
 //    }
+    
     session_start();
+    var_dump($_POST);
     if (!isset($_SESSION["userID"])) {
-        echo "nein!";
+        include("login.html");
     } elseif (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
         include("template.php");
     } else {
