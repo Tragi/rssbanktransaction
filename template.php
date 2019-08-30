@@ -2,7 +2,7 @@
 <html lang="en">
     <?php include("header.html"); ?>
     <body>
-        <div class="container">
+        <div class="body">
             <div class="row">
                 <div class="p2 col-4">
                     <h2>Banka</h2>
