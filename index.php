@@ -76,6 +76,7 @@ try {
 //    }
     
     session_start();
+    $userName = "Anonym"
     if (isset($_POST["user"])) {
         $user = trim($_POST["user"]);
         $stmt = $pdo->prepare("SELECT * FROM users WHERE Name = :name");
@@ -91,6 +92,7 @@ try {
             $userId = $pdo->lastInsertId();
         } else {
             $userId = $row["id"];
+            $userName = $row["name"];
         }
         $_SESSION["userID"] = $userId;
     }

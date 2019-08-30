@@ -1,7 +1,7 @@
         <form id="transactionForm" method="post" action="/." onsubmit="return false;">
             <div class="form-group d-flex flex-fill">
                 <span class="align-middle p-2">uživatel:</span>
-                <strong class="align-middle col-2 p-2">Anonym</strong>
+                <strong class="align-middle col-2 p-2"><?php echo $userName; ?></strong>
                 <span class="align-middle col-2"></span>
                 <label class="align-middle col-2 p-2" for="sel1">Účet:</label>
                 <select class="form-control col-3" id="sel1" name="bank">

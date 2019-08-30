@@ -7,7 +7,7 @@
                 <div class="p2 col-4">
                     <h2>Banka</h2>
                     <div class="">
-                        <?php include("form.html"); ?>
+                        <?php include("form.php"); ?>
                     </div>
                 </div>
                 <div class="p2 col-8">
