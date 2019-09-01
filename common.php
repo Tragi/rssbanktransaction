@@ -63,7 +63,7 @@
         return $return;
     }
     
-    function echoSummaryArmy {
+    function echoSummaryArmy() {
         global $pdo;
         $stmt = $pdo->prepare("SELECT * FROM users RDER BY name ASC");
         $stmt->execute();
