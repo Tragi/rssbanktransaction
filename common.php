@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    
     ini_set('display_errors', '1');
     ini_set('error_reporting', E_ALL);
     error_reporting(E_ALL);
@@ -11,6 +13,43 @@
     $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$password";
     
     $bankID = isset($_COOKIE["bank"]) ? $_COOKIE["bank"] : 1;
+    
+    function solveUser() {
+        global $_POST, $_SESSION, $pdo;
+        
+        $userName = "Anonym";
+        if (isset($_POST["user"])) {
+            $user = trim($_POST["user"]);
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE Name = :name");
+            $stmt->bindParam(':name', $user);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            $userId = 0;
+            if (!$row) {
+                $userName = $user;
+                $stmt = $pdo->prepare("INSERT INTO users (Name, Role, Created) VALUES (:name, 1, :created)");
+                $stmt->bindParam(':name', $user);
+                $stmt->bindValue(':created', date('Y-m-d H:i:s'));
+                $stmt->execute();
+                $userId = $pdo->lastInsertId();
+            } else {
+                $userId = $row["id"];
+                $userName = $row["name"];
+            }
+            $_SESSION["userID"] = $userId;
+        } elseif (isset($_SESSION["userID"])) {
+            $_SESSION["userID"] = $_SESSION["userID"];
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE Id = :id");
+            $stmt->bindParam(':id', $_SESSION["userID"]);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            if ($row) {
+                $userName = $row["name"];
+            }
+        }
+        
+        return $userName;
+    }
     
     function bankOptions() {
         global $bankID;
