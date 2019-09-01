@@ -136,7 +136,7 @@
     }
     
     function createTransaction() {
-        global $pdo, $_POST;
+        global $pdo, $_POST, $_SESSION;
         $multiplier = isset($_POST["transaction"]) ? 1 : -1;
         $stmt = $pdo->prepare("INSERT INTO transactions (uid, bid, Grain, Wood, Stone, Iron, Gold, Created, Type) VALUES (:uid, :bid, :grain, :wood, :stone, :iron, :gold, :created, :type)");
         $stmt->bindParam(':uid', $_SESSION["userID"]);
@@ -152,7 +152,12 @@
     }
     
     function updateProfile() {
-        
+        global $pdo, $_POST, $_SESSION;
+        $stmt = $pdo->prepare("UPDATE users SET t3=:t3, t4=:t4 WHERE id=:uid");
+        $stmt->bindParam(':uid', $_SESSION["userID"]);
+        $stmt->bindParam(':t3', $_POST["t3"]);
+        $stmt->bindParam(':t4', $_POST["t4"]);
+        $stmt->execute();
     }
     
     function army($rank) {

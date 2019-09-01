@@ -10,11 +10,10 @@
         var_dump($_POST);
         if (!isset($_SESSION["userID"]) || (isset($_SESSION["userID"]) && $_SESSION["userID"] <= 0)) {
             include("login.html");
-        } elseif (isset($_POST["user"])) {
-            header("Status: 200");
-            updateProfile();
-            include("list.php");
         } else {
+            if (isset($_POST["user"])) {
+                updateProfile();
+            }
             include("profileTemplate.php");
         }
     } catch(PDOException $e) {
