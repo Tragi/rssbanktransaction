@@ -9,20 +9,25 @@
     $username = 'zhtzkjcvxxjmfk';
     $password = '0d089aae8342db654d90cb7cb2e652bdf303918af61f9d997f380a80aba204f0';
     $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$password";
-    var_dump($_COOKIE);
+    
+    $bankID = isset $_COOKIE["bank"] ? $_COOKIE["bank"] : 1;
+    
     function bankOptions() {
+        global $bankID;
         $banks = [1 => "Sezam",2 => "Agro"];
         $return = "";
         foreach($banks as $key=>$value) {
-            $return = $return."<option value=\"$key\">$value</option>";
+            $selected = $bankID == $key ? "selected=\"selected\"";
+            $return = $return."<option $selected value=\"$key\">$value</option>";
         }
         //
         return $return;
     }
     
     function echoSummaryTransactions() {
-        global $pdo;
-        $stmt = $pdo->prepare("SELECT transactions.uid, users.name, SUM(transactions.grain) AS grain, SUM(transactions.wood) AS grain, SUM(transactions.wood) AS wood, SUM(transactions.stone) AS stone, SUM(transactions.iron) AS iron, SUM(transactions.gold) AS gold FROM transactions LEFT JOIN users ON transactions.uid = users.id GROUP BY transactions.uid, users.name ORDER BY users.name ASC");
+        global $pdo, $bankID;
+        $stmt = $pdo->prepare("SELECT transactions.uid, users.name, SUM(transactions.grain) AS grain, SUM(transactions.wood) AS grain, SUM(transactions.wood) AS wood, SUM(transactions.stone) AS stone, SUM(transactions.iron) AS iron, SUM(transactions.gold) AS gold FROM transactions LEFT JOIN users ON transactions.uid = users.id WHERE transactions.bid = :bid GROUP BY transactions.uid, users.name ORDER BY users.name ASC");
+        $stmt->bindValue(':bid', $bankID);
         $stmt->execute();
         
         $sumGrain = 0;$sumWood = 0;$sumStone = 0;$sumIron = 0;$sumGold = 0;
@@ -60,9 +65,11 @@
     
     
     function echoTransactions() {
-        global $pdo;
-        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :id ORDER BY id DESC");
-        $stmt->bindValue(':id', isset($_SESSION["userID"]) ? $_SESSION["userID"] : 0);
+        global $pdo, $bankID;
+        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :iid, bid = :bid ORDER BY id DESC");
+        $stmt->bindValue(':uid', isset($_SESSION["userID"]) ? $_SESSION["userID"] : 0);
+        $stmt->bindValue(':bid', $bankID);
+        
         $stmt->execute();
         $sumGrain = 0;$sumWood = 0;$sumStone = 0;$sumIron = 0;$sumGold = 0;
         while ($row = $stmt->fetch()) {

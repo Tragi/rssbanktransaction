@@ -5,8 +5,7 @@
                 <span class="align-middle col-2"></span>
                 <label class="align-middle col-2 p-2" for="sel1">Účet:</label>
                 <select class="form-control col-3" id="sel1" name="bank">
-                    <option value="1">Sezam</option>
-                    <option value="2">Agro</option>
+                     <?php echo bankOptions(); ?>
                 </select>
             </div>
             <label for="customRange2">Grain</label>
