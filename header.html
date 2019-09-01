@@ -31,6 +31,7 @@
                     }, error: function(){}})
                 }
             });
+            $("#bankSelect").change(function(){ Cookies.set('bank', $('#bankSelect'). val());$("#switchBank").submit(); });
         });
     </script>
     <style>
