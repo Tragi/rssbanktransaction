@@ -1,4 +1,4 @@
-        <form id="transactionForm" method="post" action="/." onsubmit="return false;">
+        <form id="transactionForm" method="post" action="" onsubmit="return false;">
             <div class="form-group d-flex flex-fill">
                 <span class="align-middle p-2">uživatel:</span>
                 <strong class="align-middle col-2 p-2"><?php echo $userName; ?></strong>
