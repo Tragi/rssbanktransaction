@@ -11,8 +11,7 @@
         if (!isset($_SESSION["userID"]) || (isset($_SESSION["userID"]) && $_SESSION["userID"] <= 0)) {
             include("login.html");
         } else {
-            if (isset($_POST["user"])) {
-                echo "hahahha";
+            if (isset($_POST["update"]) && $_POST["update"] == "user") {
                 updateProfile();
             }
             include("profileTemplate.php");
