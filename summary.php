@@ -19,11 +19,11 @@
         //        throw new Exception('Request method must be POST!');
         //    }
         
-        $sql ="DELETE FROM transactions;";
-        $pdo->exec($sql);
-        
-        $sql ="DELETE FROM users;";
-        $pdo->exec($sql);
+//        $sql ="DELETE FROM transactions;";
+//        $pdo->exec($sql);
+//        
+//        $sql ="DELETE FROM users;";
+//        $pdo->exec($sql);
         
         
         include("summaryTemplate.php");
