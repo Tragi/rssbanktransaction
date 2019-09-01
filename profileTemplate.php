@@ -35,7 +35,7 @@
                             <div class="form-group row">
                                 <div class="d-flex justify-content-end col-12">
                                     <input type="hidden" value="update" name="user" />
-                                    <button id="submit" class="btn btn-primary col-4" data-dismiss="modal">Aktualizovat</button>
+                                    <button id="submitProfile" class="btn btn-primary col-4">Aktualizovat</button>
                                 </div>
                             </div>
                         </form>

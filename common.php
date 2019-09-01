@@ -151,6 +151,10 @@
         $stmt->execute();
     }
     
+    function updateProfile() {
+        
+    }
+    
     function army($rank) {
         global $pdo, $_SESSION;
         $_SESSION["userID"] = $_SESSION["userID"];
