@@ -65,7 +65,7 @@
     
     function echoSummaryArmy() {
         global $pdo;
-        $stmt = $pdo->prepare("SELECT * FROM users RDER BY name ASC");
+        $stmt = $pdo->prepare("SELECT * FROM users ORDER BY name ASC");
         $stmt->execute();
         
         $sumT3 = 0;$sumT4 = 0;
