@@ -17,7 +17,7 @@
         $banks = [1 => "Sezam",2 => "Agro"];
         $return = "";
         foreach($banks as $key=>$value) {
-            $selected = $bankID == $key ? "selected=\"selected\"";
+            $selected = $bankID == $key ? "selected=\"selected\"" : "";
             $return = $return."<option $selected value=\"$key\">$value</option>";
         }
         //
