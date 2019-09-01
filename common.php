@@ -66,7 +66,7 @@
     
     function echoTransactions() {
         global $pdo, $bankID;
-        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :iid, bid = :bid ORDER BY id DESC");
+        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE uid = :uid, bid = :bid ORDER BY id DESC");
         $stmt->bindValue(':uid', isset($_SESSION["userID"]) ? $_SESSION["userID"] : 0);
         $stmt->bindValue(':bid', $bankID);
         

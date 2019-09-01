@@ -15,6 +15,11 @@
             function formIsReady() {
                 return $("input[name=grain]").val() + $("input[name=wood]").val() + $("input[name=stone]").val() + $("input[name=iron]").val() + $("input[name=gold]").val() > 0
             }
+            function refreshTransactions() {
+                $.ajax({type: "POST", url: "/.", data: $("#transactionForm").serialize(), success: function(msg){
+                    $("#transactionList").html(msg)
+                }, error: function(){}})
+            }
                           
             var resources = ["grain","wood","stone","iron","gold"]
             for (i = 0; i < resources.length; i++) { (function (i) {
@@ -28,12 +33,11 @@
             $("button#submit").attr("disabled", !formIsReady());
             $("button#submit").click(function(){
                 if (formIsReady()) {
-                    $.ajax({type: "POST", url: "/.", data: $("#transactionForm").serialize(), success: function(msg){
-                        $("#transactionList").html(msg)
-                    }, error: function(){}})
+                    function refreshTransactions();
                 }
             });
             $("#bankSelect").change(function(){ Cookies.set('bank', $('#bankSelect'). val());$("#switchBank").submit(); });
+            $("#sel1").change(function(){ Cookies.set('bank', $('#sel1'). val()); function refreshTransactions(); });
         });
     </script>
     <style>
