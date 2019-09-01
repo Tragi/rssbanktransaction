@@ -18,7 +18,7 @@
             function refreshTransactions() {
                 $.ajax({type: "POST", url: "/.", data: $("#transactionForm").serialize(), success: function(msg){
                     $("#transactionList").html(msg)
-                }, error: function(){}})
+                       }, error: function(){}});
             }
                           
             var resources = ["grain","wood","stone","iron","gold"]
@@ -33,11 +33,11 @@
             $("button#submit").attr("disabled", !formIsReady());
             $("button#submit").click(function(){
                 if (formIsReady()) {
-                    function refreshTransactions();
+                    refreshTransactions();
                 }
             });
             $("#bankSelect").change(function(){ Cookies.set('bank', $('#bankSelect'). val());$("#switchBank").submit(); });
-            $("#sel1").change(function(){ Cookies.set('bank', $('#sel1'). val()); function refreshTransactions(); });
+            $("#sel1").change(function(){ Cookies.set('bank', $('#sel1'). val()); refreshTransactions(); });
         });
     </script>
     <style>
