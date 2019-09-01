@@ -63,6 +63,29 @@
         return $return;
     }
     
+    function echoSummaryArmy {
+        global $pdo;
+        $stmt = $pdo->prepare("SELECT * FROM users RDER BY name ASC");
+        $stmt->execute();
+        
+        $sumT3 = 0;$sumT4 = 0;
+        while ($row = $stmt->fetch()) {
+            $name = $row["name"];
+            $sumT3 += $row["t3"];
+            $sumT4 += $row["t4"];
+            $t3 = number_format($row["t3"], 0, ',', ' ');
+            $t4 = number_format($row["t4"], 0, ',', ' ');
+            $t3Class = $row["t3"] > 0 ? "table-success" : ($row["t3"] == 0 ? "table-light" : "table-danger");
+            $t4Class = $row["t4"] > 0 ? "table-success" : ($row["t4"] == 0 ? "table-light" : "table-danger");
+            echo "<tr class='table-'><td style=\"width:100px\">$name</td><td class=\"$$t3Class\" style=\"width:120px\">$t3</td><td class=\"$t4Class\" style=\"width:120px\">$t4</td></tr>";
+        }
+        $t3 = number_format($sumT3, 0, ',', ' ');
+        $t4 = number_format($sumT4, 0, ',', ' ');
+        $t3Class = $row["t3"] > 0 ? "table-success" : ($sumT3 == 0 ? "table-light" : "table-danger");
+        $t4Class = $row["t4"] > 0 ? "table-success" : ($sumT4 == 0 ? "table-light" : "table-danger");
+        return "<tr><td class='table-primary' scope=\"col\" style=\"width:100px\">Součet</td><td class=\"$$t3Class\" scope=\"col\" style=\"width:120px\">$t3</td><td class=\"$t4Class\" scope=\"col\" style=\"width:120px\">$t4</td></tr>";
+    }
+    
     function echoSummaryTransactions() {
         global $pdo, $bankID;
         $stmt = $pdo->prepare("SELECT transactions.uid, users.name, SUM(transactions.grain) AS grain, SUM(transactions.wood) AS grain, SUM(transactions.wood) AS wood, SUM(transactions.stone) AS stone, SUM(transactions.iron) AS iron, SUM(transactions.gold) AS gold FROM transactions LEFT JOIN users ON transactions.uid = users.id WHERE transactions.bid = :bid GROUP BY transactions.uid, users.name ORDER BY users.name ASC");
@@ -101,7 +124,6 @@
         $goldClass = $sumGold > 0 ? "table-success" : ($sumGold == 0 ? "table-light" : "table-danger");
         return "<tr><td class='table-primary' scope=\"col\" style=\"width:100px\">Součet</td><td class=\"$grainClass\" scope=\"col\" style=\"width:120px\">$grain</td><td class=\"$woodClass\" scope=\"col\" style=\"width:120px\">$wood</td><td class=\"$stoneClass\" scope=\"col\" style=\"width:120px\">$stone</td><td class=\"$ironClass\" scope=\"col\" style=\"width:120px\">$iron</td><td class=\"$goldClass\" scope=\"col\" style=\"width:120px\">$gold</td></tr>";
     }
-    
     
     function echoTransactions() {
         global $pdo, $bankID;

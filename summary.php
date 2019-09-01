@@ -28,6 +28,4 @@
         echo "Error: " . $e->getMessage();
     }
     
-    ?>
-
-
+?>
