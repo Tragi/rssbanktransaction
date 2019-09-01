@@ -167,7 +167,6 @@
         $stmt->bindParam(':id', $_SESSION["userID"]);
         $stmt->execute();
         $row = $stmt->fetch();
-        var_dump($row);
         if ($row) {
             return $row[$rank];
         }
