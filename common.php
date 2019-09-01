@@ -159,7 +159,7 @@
         $stmt->execute();
         $row = $stmt->fetch();
         if ($row) {
-            return = $row[$rank];
+            return $row[$rank];
         }
         return 0;
     }
