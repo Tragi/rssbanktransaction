@@ -10,7 +10,7 @@
     $password = '0d089aae8342db654d90cb7cb2e652bdf303918af61f9d997f380a80aba204f0';
     $dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$password";
     
-    $bankID = isset $_COOKIE["bank"] ? $_COOKIE["bank"] : 1;
+    $bankID = isset($_COOKIE["bank"]) ? $_COOKIE["bank"] : 1;
     
     function bankOptions() {
         global $bankID;
