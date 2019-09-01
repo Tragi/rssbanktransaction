@@ -12,6 +12,7 @@
             include("login.html");
         } else {
             if (isset($_POST["user"])) {
+                echo "hahahha";
                 updateProfile();
             }
             include("profileTemplate.php");
