@@ -37,7 +37,7 @@
                 }
             });
             $("#bankSelect").change(function(){ Cookies.set('bank', $('#bankSelect'). val());$("#switchBank").submit(); });
-            $("#sel1").change(function(){ Cookies.set('bank', $('#sel1'). val()); refreshTransactions(); });
+            $("#sel1").change(function(){ Cookies.set('bank', $('#sel1'). val()); location.reload(); });
         });
     </script>
     <style>
