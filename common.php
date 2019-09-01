@@ -151,4 +151,17 @@
         $stmt->execute();
     }
     
+    function army($rank) {
+        global $pdo; $_SESSION;
+        $_SESSION["userID"] = $_SESSION["userID"];
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE Id = :id");
+        $stmt->bindParam(':id', $_SESSION["userID"]);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        if ($row) {
+            return = $row[$rank];
+        }
+        return 0;
+    }
+    
 ?>
