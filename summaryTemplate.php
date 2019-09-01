@@ -5,7 +5,7 @@
         <div class="body">
             <div class="row">
                 <div class="p2 col-12">
-                <form id="switchBank" method="get" action="/.">
+                <form id="switchBank" method="get" action="/summary.php">
                     <div class="form-group d-flex flex-fill">
                         <h2 class="align-middle col-2">Výpis</h2>
                         <label class="align-middle col-1 p-2" for="sel1">Banka:</label>
