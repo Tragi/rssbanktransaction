@@ -25,8 +25,10 @@
             for (i = 0; i < resources.length; i++) { (function (i) {
                 var slider = $("#" + resources[i] + "Slider");
                 var input = $("#" + resources[i] + "Input");
-                slider.val("0");
-                input.val("0");
+                if (i < 5) {
+                    slider.val("0");
+                    input.val("0");
+                }
                 slider.on("input change", function(e) { input.val($(this).val()); $("button#submit").attr("disabled", !formIsReady());});
                 input.on("input change", function(e) { slider.val($(this).val()); $("button#submit").attr("disabled", !formIsReady());});
             })(i)}

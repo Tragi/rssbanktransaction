@@ -26,7 +26,7 @@
                                         <input type="range" class="custom-range align-middle" min="0" max="10000000" step="10000" value=<?php echo "\"".army("t4")."\"";  ?>  id="t4Slider" />
                                     </div>
                                     <div class="col-4">
-                                        <input class="form-control" type="number" min="0" max="10000000" step="10000" value=<?php echo "\"".army("t3")."\"";  ?> id="t4Input" name="t4" />
+                                        <input class="form-control" type="number" min="0" max="10000000" step="10000" value=<?php echo "\"".army("t4")."\"";  ?> id="t4Input" name="t4" />
                                     </div>
                                 </div>
                             </div>
