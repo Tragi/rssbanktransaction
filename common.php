@@ -158,8 +158,6 @@
         $stmt->bindParam(':t3', $_POST["t3"]);
         $stmt->bindParam(':t4', $_POST["t4"]);
         $stmt->execute();
-        var_dump($_POST);
-        
     }
     
     function army($rank) {
@@ -169,7 +167,6 @@
         $stmt->bindParam(':id', $_SESSION["userID"]);
         $stmt->execute();
         $row = $stmt->fetch();
-        var_dump($row);
         if ($row) {
             return $row[$rank];
         }
