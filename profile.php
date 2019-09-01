@@ -7,7 +7,7 @@
         $pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );//Error Handling
         
         $userName = solveUser();
-        
+        var_dump($_POST);
         if (!isset($_SESSION["userID"]) || (isset($_SESSION["userID"]) && $_SESSION["userID"] <= 0)) {
             include("login.html");
         } elseif (isset($_POST["user"])) {

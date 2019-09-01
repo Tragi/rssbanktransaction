@@ -7,7 +7,7 @@
                 <div class="p2 col-4">
                     <h2>Profil</h2>
                     <div class="">
-                        <form id="armyForm" method="post" action="/." onsubmit="return false;">
+                        <form id="armyForm" method="post" action="">
                             <label for="customRange2">T3</label>
                             <div class="form-group row">
                                 <div class="d-flex flex-fill">
@@ -34,7 +34,7 @@
                             <br />
                             <div class="form-group row">
                                 <div class="d-flex justify-content-end col-12">
-                                    <input type"hidden" value="update" name="user" />
+                                    <input type="hidden" value="update" name="user" />
                                     <button id="submit" class="btn btn-primary col-4" data-dismiss="modal">Aktualizovat</button>
                                 </div>
                             </div>
