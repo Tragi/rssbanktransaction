@@ -77,13 +77,13 @@
             $t4 = number_format($row["t4"], 0, ',', ' ');
             $t3Class = $row["t3"] > 0 ? "table-success" : ($row["t3"] == 0 ? "table-light" : "table-danger");
             $t4Class = $row["t4"] > 0 ? "table-success" : ($row["t4"] == 0 ? "table-light" : "table-danger");
-            echo "<tr class='table-'><td style=\"width:100px\">$name</td><td class=\"$$t3Class\" style=\"width:120px\">$t3</td><td class=\"$t4Class\" style=\"width:120px\">$t4</td></tr>";
+            echo "<tr class='table-'><td style=\"width:100px\">$name</td><td class=\"$t3Class\" style=\"width:120px\">$t3</td><td class=\"$t4Class\" style=\"width:120px\">$t4</td></tr>";
         }
         $t3 = number_format($sumT3, 0, ',', ' ');
         $t4 = number_format($sumT4, 0, ',', ' ');
         $t3Class = $row["t3"] > 0 ? "table-success" : ($sumT3 == 0 ? "table-light" : "table-danger");
         $t4Class = $row["t4"] > 0 ? "table-success" : ($sumT4 == 0 ? "table-light" : "table-danger");
-        return "<tr><td class='table-primary' scope=\"col\" style=\"width:100px\">Součet</td><td class=\"$$t3Class\" scope=\"col\" style=\"width:120px\">$t3</td><td class=\"$t4Class\" scope=\"col\" style=\"width:120px\">$t4</td></tr>";
+        return "<tr><td class='table-primary' scope=\"col\" style=\"width:100px\">Součet</td><td class=\"$t3Class\" scope=\"col\" style=\"width:120px\">$t3</td><td class=\"$t4Class\" scope=\"col\" style=\"width:120px\">$t4</td></tr>";
     }
     
     function echoSummaryTransactions() {
