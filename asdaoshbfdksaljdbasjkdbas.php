@@ -8,8 +8,7 @@
         //    $sql ="CREATE TABLE banks (ID serial PRIMARY KEY, Name VARCHAR(50) NOT NULL, Created timestamp);" ;
         //    $pdo->exec($sql);
 
-$sql ="INSERT INTO banks (ID, Name, Created);" ;
-$stmt = $pdo->prepare("INSERT INTO banks (ID, Name, Created) VALUES (:id, :name, :created, :type)");
+	$stmt = $pdo->prepare("INSERT INTO banks (ID, Name, Created) VALUES (:id, :name, :created, :type)");
         $stmt->bindParam(':id', 2);
         $stmt->bindParam(':name', "Krtek");
         $stmt->bindValue(':created', date('Y-m-d H:i:s'));
@@ -32,8 +31,6 @@ $stmt = $pdo->prepare("INSERT INTO banks (ID, Name, Created) VALUES (:id, :name,
 //        $sql ="DELETE FROM users;";
 //        $pdo->exec($sql);
         
-        
-        include("summaryTemplate.php");
         
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
