@@ -53,7 +53,7 @@
     
     function bankOptions() {
         global $bankID;
-        $banks = [1 => "Sezam",2 => "Agro"];
+        $banks = [1 => "Sezam",2 => "Agro", 3 => "Krtek"];
         $return = "";
         foreach($banks as $key=>$value) {
             $selected = $bankID == $key ? "selected=\"selected\"" : "";
