@@ -1,242 +1,263 @@
 <?php
-/* vim: set expandtab sw=4 ts=4 sts=4: */
-/**
- * SQL executor
- *
- * @todo    we must handle the case if sql.php is called directly with a query
- *          that returns 0 rows - to prevent cyclic redirects or includes
- * @package PhpMyAdmin
- */
-declare(strict_types=1);
 
-use PhpMyAdmin\CheckUserPrivileges;
-use PhpMyAdmin\Config\PageSettings;
-use PhpMyAdmin\DatabaseInterface;
-use PhpMyAdmin\ParseAnalyze;
-use PhpMyAdmin\Response;
-use PhpMyAdmin\Sql;
-use PhpMyAdmin\Url;
-use PhpMyAdmin\Util;
-use PhpMyAdmin\Core;
+	/**
+	 * Process an arbitrary SQL query - tricky!  The main problem is that
+	 * unless we implement a full SQL parser, there's no way of knowing
+	 * how many SQL statements have been strung together with semi-colons
+	 * @param $_SESSION['sqlquery'] The SQL query string to execute
+	 *
+	 * $Id: sql.php,v 1.43 2008/01/10 20:19:27 xzilla Exp $
+	 */
 
-if (! defined('ROOT_PATH')) {
-    define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR);
-}
+	 global $lang;
 
-global $cfg, $containerBuilder, $pmaThemeImage;
+	// Prevent timeouts on large exports (non-safe mode only)
+	if (!ini_get('safe_mode')) set_time_limit(0);
 
-require_once ROOT_PATH . 'libraries/common.inc.php';
+	// Include application functions
+	include_once('./libraries/lib.inc.php');
 
-/** @var Response $response */
-$response = $containerBuilder->get(Response::class);
+	/**
+	 * This is a callback function to display the result of each separate query
+	 * @param ADORecordSet $rs The recordset returned by the script execetor
+	 */
+	function sqlCallback($query, $rs, $lineno) {
+		global $data, $misc, $lang, $_connection;
+		// Check if $rs is false, if so then there was a fatal error
+		if ($rs === false) {
+			echo htmlspecialchars($_FILES['script']['name']), ':', $lineno, ': ', nl2br(htmlspecialchars($_connection->getLastError())), "<br/>\n";
+		}
+		else {
+			// Print query results
+			switch (pg_result_status($rs)) {
+				case PGSQL_TUPLES_OK:
+					// If rows returned, then display the results
+					$num_fields = pg_numfields($rs);
+					echo "<p><table>\n<tr>";
+					for ($k = 0; $k < $num_fields; $k++) {
+						echo "<th class=\"data\">", $misc->printVal(pg_fieldname($rs, $k)), "</th>";
+					}
+		
+					$i = 0;
+					$row = pg_fetch_row($rs);
+					while ($row !== false) {
+						$id = (($i % 2) == 0 ? '1' : '2');
+						echo "<tr class=\"data{$id}\">\n";
+						foreach ($row as $k => $v) {
+							echo "<td style=\"white-space:nowrap;\">", $misc->printVal($v, pg_fieldtype($rs, $k), array('null' => true)), "</td>";
+						}							
+						echo "</tr>\n";
+						$row = pg_fetch_row($rs);
+						$i++;
+					};
+					echo "</table><br/>\n";
+					echo $i, " {$lang['strrows']}</p>\n";
+					break;
+				case PGSQL_COMMAND_OK:
+					// If we have the command completion tag
+					if (version_compare(phpversion(), '4.3', '>=')) {
+						echo htmlspecialchars(pg_result_status($rs, PGSQL_STATUS_STRING)), "<br/>\n";
+					}
+					// Otherwise if any rows have been affected
+					elseif ($data->conn->Affected_Rows() > 0) {
+						echo $data->conn->Affected_Rows(), " {$lang['strrowsaff']}<br/>\n";
+					}
+					// Otherwise output nothing...
+					break;
+				case PGSQL_EMPTY_QUERY:
+					break;
+				default:
+					break;
+			}
+		}
+	}
 
-/** @var DatabaseInterface $dbi */
-$dbi = $containerBuilder->get(DatabaseInterface::class);
+	// We need to store the query in a session for editing purposes
+	// We avoid GPC vars to avoid truncating long queries
+	if (isset($_REQUEST['subject']) && $_REQUEST['subject'] == 'history') {
+		// Or maybe we came from the history popup
+		$_SESSION['sqlquery'] = $_SESSION['history'][$_REQUEST['server']][$_REQUEST['database']][$_GET['queryid']]['query'];
+	}
+	elseif (isset($_POST['query'])) {
+		// Or maybe we came from an sql form
+		$_SESSION['sqlquery'] = $_POST['query'];
+	}
+	else {
+		echo "could not find the query!!";
+	}
+	
+	// Pagination maybe set by a get link that has it as FALSE,
+	// if that's the case, unset the variable.
 
-/** @var CheckUserPrivileges $checkUserPrivileges */
-$checkUserPrivileges = $containerBuilder->get('check_user_privileges');
-$checkUserPrivileges->getPrivileges();
+	if (isset($_REQUEST['paginate']) && $_REQUEST['paginate'] == 'f') {
+		unset($_REQUEST['paginate']);
+		unset($_POST['paginate']);
+		unset($_GET['paginate']);
+	}
+	// Check to see if pagination has been specified. In that case, send to display
+	// script for pagination
+	/* if a file is given or the request is an explain, do not paginate */
+	if (isset($_REQUEST['paginate']) && !(isset($_FILES['script']) && $_FILES['script']['size'] > 0)
+			&& (preg_match('/^\s*explain/i', $_SESSION['sqlquery']) == 0)) {
+		include('./display.php');
+		exit;
+	}
+	
+	$subject = isset($_REQUEST['subject'])? $_REQUEST['subject'] : '';
+	$misc->printHeader($lang['strqueryresults']);
+	$misc->printBody();
+	$misc->printTrail('database');
+	$misc->printTitle($lang['strqueryresults']);
 
-PageSettings::showGroup('Browse');
+	// Set the schema search path
+	if (isset($_REQUEST['search_path'])) {
+		if ($data->setSearchPath(array_map('trim',explode(',',$_REQUEST['search_path']))) != 0) {
+			$misc->printFooter();
+			exit;
+		}
+	}
 
-$header = $response->getHeader();
-$scripts = $header->getScripts();
-$scripts->addFile('vendor/jquery/jquery.uitablefilter.js');
-$scripts->addFile('table/change.js');
-$scripts->addFile('indexes.js');
-$scripts->addFile('gis_data_editor.js');
-$scripts->addFile('multi_column_sort.js');
+	// May as well try to time the query
+	if (function_exists('microtime')) {
+		list($usec, $sec) = explode(' ', microtime());
+		$start_time = ((float)$usec + (float)$sec);
+	}
+	else $start_time = null;
+	// Execute the query.  If it's a script upload, special handling is necessary
+	if (isset($_FILES['script']) && $_FILES['script']['size'] > 0)
+		$data->executeScript('script', 'sqlCallback');
+	else {
+		// Set fetch mode to NUM so that duplicate field names are properly returned
+		$data->conn->setFetchMode(ADODB_FETCH_NUM);
+		$rs = $data->conn->Execute($_SESSION['sqlquery']);
 
-/** @var Sql $sql */
-$sql = $containerBuilder->get('sql');
+		// $rs will only be an object if there is no error
+		if (is_object($rs)) {
+			// Request was run, saving it in history
+			if(!isset($_REQUEST['nohistory']))
+				$misc->saveScriptHistory($_SESSION['sqlquery']);
 
-/**
- * Set ajax_reload in the response if it was already set
- */
-if (isset($ajax_reload) && $ajax_reload['reload'] === true) {
-    $response->addJSON('ajax_reload', $ajax_reload);
-}
+			// Now, depending on what happened do various things
+	
+			// First, if rows returned, then display the results
+			if ($rs->recordCount() > 0) {
+				echo "<table>\n<tr>";
+				foreach ($rs->fields as $k => $v) {
+					$finfo = $rs->fetchField($k);
+					echo "<th class=\"data\">", $misc->printVal($finfo->name), "</th>";
+				}
+                                echo "</tr>\n";	
+				$i = 0;		
+				while (!$rs->EOF) {
+					$id = (($i % 2) == 0 ? '1' : '2');
+					echo "<tr class=\"data{$id}\">\n";
+					foreach ($rs->fields as $k => $v) {
+						$finfo = $rs->fetchField($k);
+						echo "<td style=\"white-space:nowrap;\">", $misc->printVal($v, $finfo->type, array('null' => true)), "</td>";
+					}							
+					echo "</tr>\n";
+					$rs->moveNext();
+					$i++;
+				}
+				echo "</table>\n";
+				echo "<p>", $rs->recordCount(), " {$lang['strrows']}</p>\n";
+			}
+			// Otherwise if any rows have been affected
+			elseif ($data->conn->Affected_Rows() > 0) {
+				echo "<p>", $data->conn->Affected_Rows(), " {$lang['strrowsaff']}</p>\n";
+			}
+			// Otherwise nodata to print
+			else echo '<p>', $lang['strnodata'], "</p>\n";
+		}
+	}
 
-/**
- * Defines the url to return to in case of error in a sql statement
- */
-$is_gotofile  = true;
-if (empty($goto)) {
-    if (empty($table)) {
-        $goto = Util::getScriptNameForOption(
-            $cfg['DefaultTabDatabase'],
-            'database'
-        );
-    } else {
-        $goto = Util::getScriptNameForOption(
-            $cfg['DefaultTabTable'],
-            'table'
-        );
-    }
-} // end if
+	// May as well try to time the query
+	if ($start_time !== null) {
+		list($usec, $sec) = explode(' ', microtime());
+		$end_time = ((float)$usec + (float)$sec);	
+		// Get duration in milliseconds, round to 3dp's	
+		$duration = number_format(($end_time - $start_time) * 1000, 3);
+	}
+	else $duration = null;
 
-if (! isset($err_url)) {
-    $err_url = (! empty($back) ? $back : $goto)
-        . '?' . Url::getCommon(['db' => $GLOBALS['db']])
-        . ((mb_strpos(' ' . $goto, 'db_') != 1
-            && strlen($table) > 0)
-            ? '&amp;table=' . urlencode($table)
-            : ''
-        );
-} // end if
+	// Reload the browser as we may have made schema changes
+	$_reload_browser = true;
 
-// Coming from a bookmark dialog
-if (isset($_POST['bkm_fields']['bkm_sql_query'])) {
-    $sql_query = $_POST['bkm_fields']['bkm_sql_query'];
-} elseif (isset($_POST['sql_query'])) {
-    $sql_query = $_POST['sql_query'];
-} elseif (isset($_GET['sql_query']) && isset($_GET['sql_signature'])) {
-    if (Core::checkSqlQuerySignature($_GET['sql_query'], $_GET['sql_signature'])) {
-        $sql_query = $_GET['sql_query'];
-    }
-}
+	// Display duration if we know it
+	if ($duration !== null) {
+		echo "<p>", sprintf($lang['strruntime'], $duration), "</p>\n";
+	}
+	
+	echo "<p>{$lang['strsqlexecuted']}</p>\n";
+			
+	$navlinks = array();
+	$fields = array(
+		'server' => $_REQUEST['server'],
+		'database' => $_REQUEST['database'],
+	);
 
-// This one is just to fill $db
-if (isset($_POST['bkm_fields']['bkm_database'])) {
-    $db = $_POST['bkm_fields']['bkm_database'];
-}
+	if(isset($_REQUEST['schema']))
+		$fields['schema'] = $_REQUEST['schema'];
+	
+	// Return
+	if (isset($_REQUEST['return'])) {
+		$urlvars = $misc->getSubjectParams($_REQUEST['return']);
+		$navlinks['back'] = array (
+			'attr'=> array (
+				'href' => array (
+					'url' => $urlvars['url'],
+					'urlvars' => $urlvars['params']
+				)
+			),
+			'content' => $lang['strback']
+		);
+	}
 
-// During grid edit, if we have a relational field, show the dropdown for it.
-if (isset($_POST['get_relational_values'])
-    && $_POST['get_relational_values'] == true
-) {
-    $sql->getRelationalValues($db, $table);
-    // script has exited at this point
-}
+	// Edit		
+	$navlinks['alter'] = array (
+		'attr'=> array (
+			'href' => array (
+				'url' => 'database.php',
+				'urlvars' => array_merge($fields, array (
+					'action' => 'sql',
+				))
+			)
+		),
+		'content' => $lang['streditsql']
+	);
 
-// Just like above, find possible values for enum fields during grid edit.
-if (isset($_POST['get_enum_values']) && $_POST['get_enum_values'] == true) {
-    $sql->getEnumOrSetValues($db, $table, "enum");
-    // script has exited at this point
-}
+	// Create view and download
+	if (isset($_SESSION['sqlquery']) && isset($rs) && is_object($rs) && $rs->recordCount() > 0) {
+		// Report views don't set a schema, so we need to disable create view in that case
+		if (isset($_REQUEST['schema'])) {
+			$navlinks['createview'] = array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'views.php',
+						'urlvars' => array_merge($fields, array (
+							'action' => 'create'
+						))
+					)
+				),
+				'content' => $lang['strcreateview']
+			);
+		}
 
+		if (isset($_REQUEST['search_path']))
+			$fields['search_path'] = $_REQUEST['search_path'];
 
-// Find possible values for set fields during grid edit.
-if (isset($_POST['get_set_values']) && $_POST['get_set_values'] == true) {
-    $sql->getEnumOrSetValues($db, $table, "set");
-    // script has exited at this point
-}
+		$navlinks['download'] = array (
+			'attr'=> array (
+				'href' => array (
+					'url' => 'dataexport.php',
+					'urlvars' => $fields
+				)
+			),
+			'content' => $lang['strdownload']
+		);
+	}
 
-if (isset($_GET['get_default_fk_check_value'])
-    && $_GET['get_default_fk_check_value'] == true
-) {
-    $response = Response::getInstance();
-    $response->addJSON(
-        'default_fk_check_value',
-        Util::isForeignKeyCheck()
-    );
-    exit;
-}
-
-/**
- * Check ajax request to set the column order and visibility
- */
-if (isset($_POST['set_col_prefs']) && $_POST['set_col_prefs'] == true) {
-    $sql->setColumnOrderOrVisibility($table, $db);
-    // script has exited at this point
-}
-
-// Default to browse if no query set and we have table
-// (needed for browsing from DefaultTabTable)
-if (empty($sql_query) && strlen($table) > 0 && strlen($db) > 0) {
-    $sql_query = $sql->getDefaultSqlQueryForBrowse($db, $table);
-
-    // set $goto to what will be displayed if query returns 0 rows
-    $goto = '';
-} else {
-    // Now we can check the parameters
-    Util::checkParameters(['sql_query']);
-}
-
-/**
- * Parse and analyze the query
- */
-list(
-    $analyzed_sql_results,
-    $db,
-    $table_from_sql
-) = ParseAnalyze::sqlQuery($sql_query, $db);
-// @todo: possibly refactor
-extract($analyzed_sql_results);
-
-if ($table != $table_from_sql && ! empty($table_from_sql)) {
-    $table = $table_from_sql;
-}
-
-
-/**
- * Check rights in case of DROP DATABASE
- *
- * This test may be bypassed if $is_js_confirmed = 1 (already checked with js)
- * but since a malicious user may pass this variable by url/form, we don't take
- * into account this case.
- */
-if ($sql->hasNoRightsToDropDatabase(
-    $analyzed_sql_results,
-    $cfg['AllowUserDropDatabase'],
-    $dbi->isSuperuser()
-)) {
-    Util::mysqlDie(
-        __('"DROP DATABASE" statements are disabled.'),
-        '',
-        false,
-        $err_url
-    );
-} // end if
-
-/**
- * Need to find the real end of rows?
- */
-if (isset($find_real_end) && $find_real_end) {
-    $unlim_num_rows = $sql->findRealEndOfRows($db, $table);
-}
-
-
-/**
- * Bookmark add
- */
-if (isset($_POST['store_bkm'])) {
-    $sql->addBookmark($goto);
-    // script has exited at this point
-} // end if
-
-
-/**
- * Sets or modifies the $goto variable if required
- */
-if ($goto == 'sql.php') {
-    $is_gotofile = false;
-    $goto = 'sql.php' . Url::getCommon(
-        [
-            'db' => $db,
-            'table' => $table,
-            'sql_query' => $sql_query,
-        ]
-    );
-} // end if
-
-$sql->executeQueryAndSendQueryResponse(
-    $analyzed_sql_results, // analyzed_sql_results
-    $is_gotofile, // is_gotofile
-    $db, // db
-    $table, // table
-    isset($find_real_end) ? $find_real_end : null, // find_real_end
-    isset($import_text) ? $import_text : null, // sql_query_for_bookmark
-    isset($extra_data) ? $extra_data : null, // extra_data
-    isset($message_to_show) ? $message_to_show : null, // message_to_show
-    isset($message) ? $message : null, // message
-    isset($sql_data) ? $sql_data : null, // sql_data
-    $goto, // goto
-    $pmaThemeImage, // pmaThemeImage
-    isset($disp_query) ? $display_query : null, // disp_query
-    isset($disp_message) ? $disp_message : null, // disp_message
-    isset($query_type) ? $query_type : null, // query_type
-    $sql_query, // sql_query
-    isset($selected) ? $selected : null, // selectedTables
-    isset($complete_query) ? $complete_query : null // complete_query
-);
+	$misc->printNavLinks($navlinks, 'sql-form', get_defined_vars());
+	
+	$misc->printFooter();
+?>
