@@ -8,8 +8,7 @@
         //    $sql ="CREATE TABLE banks (ID serial PRIMARY KEY, Name VARCHAR(50) NOT NULL, Created timestamp);" ;
         //    $pdo->exec($sql);
 
-	$stmt = $pdo->prepare("INSERT INTO banks (ID, Name, Created) VALUES (:id, :name, :created, :type)");
-        $stmt->bindParam(':id', 2);
+	$stmt = $pdo->prepare("INSERT INTO banks (Name, Created) VALUES (:name, :created)");
         $stmt->bindParam(':name', "Krtek");
         $stmt->bindValue(':created', date('Y-m-d H:i:s'));
         $stmt->execute();
