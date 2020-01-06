@@ -9,7 +9,7 @@
         //    $pdo->exec($sql);
 
 	$stmt = $pdo->prepare("INSERT INTO banks (Name, Created) VALUES (:name, :created)");
-        $stmt->bindParam(':name', "Krtek");
+        $stmt->bindValue(':name', "Krtek");
         $stmt->bindValue(':created', date('Y-m-d H:i:s'));
         $stmt->execute();
         
