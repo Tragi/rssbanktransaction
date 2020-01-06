@@ -8,10 +8,10 @@
         //    $sql ="CREATE TABLE banks (ID serial PRIMARY KEY, Name VARCHAR(50) NOT NULL, Created timestamp);" ;
         //    $pdo->exec($sql);
 
-	$stmt = $pdo->prepare("INSERT INTO banks (Name, Created) VALUES (:name, :created)");
-        $stmt->bindValue(':name', "Krtek");
-        $stmt->bindValue(':created', date('Y-m-d H:i:s'));
-        $stmt->execute();
+	//$stmt = $pdo->prepare("INSERT INTO banks (Name, Created) VALUES (:name, :created)");
+        //$stmt->bindValue(':name', "Krtek");
+        //$stmt->bindValue(':created', date('Y-m-d H:i:s'));
+        //$stmt->execute();
         
         //    $sql ="CREATE TABLE users(ID serial PRIMARY KEY, Name VARCHAR(50) NOT NULL, Role integer NOT NULL, Created timestamp);" ;
         //    $pdo->exec($sql);
